@@ -1,0 +1,26 @@
+PODS:
+  - PPBlinkOCR (4.0.0)
+  - Realm (4.3.0):
+    - Realm/Headers (= 4.3.0)
+  - Realm/Headers (4.3.0)
+  - RealmSwift (4.3.0):
+    - Realm (= 4.3.0)
+
+DEPENDENCIES:
+  - PPBlinkOCR (~> 4.0.0)
+  - RealmSwift (~> 4.3.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PPBlinkOCR
+    - Realm
+    - RealmSwift
+
+SPEC CHECKSUMS:
+  PPBlinkOCR: 2a6a4baae938e82d3314ecbf46643e8327af9e1a
+  Realm: 9357c3589555793e1860a7104a7412bca4a48d99
+  RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
+
+PODFILE CHECKSUM: 0871e6a07327cb6bcfbf1fc6c253be613fb83f1b
+
+COCOAPODS: 1.6.1
