@@ -1,8 +1,8 @@
 //
-//  Passage.swift
+//  Note.swift
 //  Scribe
 //
-//  Created by Christopher Hachey on 2020-01-03.
+//  Created by Christopher Hachey on 2020-01-11.
 //  Copyright © 2020 Christopher Hachey. All rights reserved.
 //
 
@@ -10,15 +10,14 @@ import Foundation
 import Realm
 import RealmSwift
 
-public class Passage: Object {
+public class Note: Object {
     @objc dynamic var content: String = ""
-    var text = LinkingObjects(fromType: Text.self, property: "passages")
-    var notes = List<Note>()
+    var passage = LinkingObjects(fromType: Passage.self, property: "notes")
     
     required init() {
         super.init()
     }
-    
+ 
     required init(realm: RLMRealm, schema: RLMObjectSchema) {
         fatalError("init(realm:schema:) has not been implemented")
     }
@@ -27,3 +26,4 @@ public class Passage: Object {
         fatalError("init(value:schema:) has not been implemented")
     }
 }
+

@@ -14,15 +14,27 @@ public class PassageViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let util = HTMLUtility()
+        var stack = [UIView]()
+        
+        let attributedHeader = NSMutableAttributedString(string: "\(text.name)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
+        
+        let headerView = UITextView(frame: CGRect(x: 100, y: 20, width: 225, height: 100))
+        headerView.attributedText = attributedHeader
+
+        for passage in text.passages {
+            stack.append(util.getPassageView(passage: passage, index: text.passages.index(of: passage)!))
+        }
+
+        let stackView = UIStackView(arrangedSubviews: stack)
+        stackView.frame = CGRect(x: 100, y: 150, width: 225, height: 250)
+        stackView.distribution = .fillProportionally
+        stackView.axis = NSLayoutConstraint.Axis.vertical
 
         view.backgroundColor = .white
-        
-        let textView = UITextView(frame: CGRect(x: 10, y: 10, width: 250, height: 750))
-        textView.center = view.center
-        textView.textAlignment = NSTextAlignment.justified
-        textView.backgroundColor = .white
-        textView.attributedText = HTMLUtility.getNSAttributedString(text: text)
-        view.addSubview(textView)
+        view.addSubview(headerView)
+        view.addSubview(stackView)
     }
     
     public init(text: Text) {
@@ -32,5 +44,15 @@ public class PassageViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func addNote(sender: UIButton!) {
+        print(sender.accessibilityIdentifier!)
+        
+        guard let navigation = self.navigationController else {
+            fatalError("UINavigationController returned null")
+        }
+
+        navigation.pushViewController(AddNoteViewController(passage: text.passages[Int(sender.accessibilityIdentifier!)!]), animated: true)
     }
 }
