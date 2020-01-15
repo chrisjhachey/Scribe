@@ -9,32 +9,10 @@
 import Foundation
 import UIKit
 
-//public class TextSummaryView: UITableViewCell {
-//
-//    public var name: String = "Text Text Name"
-//    public var author: String = "Test Author"
-//
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        let image = UIImage(named: "icons8-open-book-96")
-//        let imageView = UIImageView(image: image)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.clipsToBounds = true
-//        imageView.tintColor = UIColor.red
-//        addSubview(imageView)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//}
-
 class TextSummaryView: UITableViewCell {
-    //var name: String!
-    //var author: String!
 
     init(name: String, author: String) {
-        super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
+        super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: "TextCell")
         
         let image = UIImage(named: "icons8-open-book-96")
         let imageView = UIImageView(image: image)
@@ -57,8 +35,6 @@ class TextSummaryView: UITableViewCell {
         let stackview = UIStackView(arrangedSubviews: stack)
         stackview.frame = CGRect(x: 50, y: 0, width: 300, height: 50)
         stackview.axis = NSLayoutConstraint.Axis.vertical
-        
-        //self.contentView.layoutMargins = UIEdgeInsets(top: 300, left: 300, bottom: 300, right: 300)
 
         addSubview(stackview)
         addSubview(imageView)

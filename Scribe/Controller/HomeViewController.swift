@@ -7,30 +7,29 @@
 //
 
 import UIKit
-import MicroBlink
+import MobileCoreServices
 import RealmSwift
-import Eureka
+import TesseractOCR
 
-class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, MBBarcodeOverlayViewControllerDelegate {
+class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate {
     let realm = try! Realm()
     var texts: Results<Text>?
-    var selectedText: String = ""
+    var selectedText: Text?
+    var ocrText: String = ""
     let pickerView = UIPickerView()
     
     @IBOutlet weak var currentWorkingText: UITextField!
-    
-    var rawParser: MBRawParser?
-    var parserGroupProcessor: MBParserGroupProcessor?
-    var blinkInputRecognizer: MBBlinkInputRecognizer?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.hidesWhenStopped = true
         
         texts = realm.objects(Text.self)
         
         pickerView.delegate = self
         let color1 = UIColor.brown
-        let color2 = HTMLUtility.hexStringToUIColor(hex: "#D0C8B0")
+        let color2 = Utility.hexStringToUIColor(hex: "#D0C8B0")
 
         pickerView.setValue(color1, forKey: "textColor")
         pickerView.setValue(color2, forKey: "backgroundColor")
@@ -40,45 +39,74 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     @IBAction func scribeItPressed(_ sender: UIButton) {
-        print("Scribe It Pushed: \(selectedText)")
+        print("Scribe It Pushed: \(selectedText!)")
         
-        MBMicroblinkSDK.sharedInstance().setLicenseKey(Context.shared.blinkLicenseKey)
-        
-        let settings = MBBarcodeOverlaySettings()
-        rawParser = MBRawParser()
-        parserGroupProcessor = MBParserGroupProcessor(parsers: [rawParser!])
-        blinkInputRecognizer = MBBlinkInputRecognizer(processors: [parserGroupProcessor!])
-        
-        let recognizerList = [self.blinkInputRecognizer!]
-        let recognizerCollection : MBRecognizerCollection = MBRecognizerCollection(recognizers: recognizerList)
-        
-        /** Create your overlay view controller */
-        let barcodeOverlayViewController : MBBarcodeOverlayViewController = MBBarcodeOverlayViewController(settings: settings, recognizerCollection: recognizerCollection, delegate: self)
-        
-        /** Create recognizer view controller with wanted overlay view controller */
-        let recognizerRunneViewController : UIViewController = MBViewControllerFactory.recognizerRunnerViewController(withOverlayViewController: barcodeOverlayViewController)
-        
-        /** Present the recognizer runner view controller. You can use other presentation methods as well (instead of presentViewController) */
-        present(recognizerRunneViewController, animated: true, completion: nil)
-    }
-    
-    func barcodeOverlayViewControllerDidFinishScanning(_ barcodeOverlayViewController: MBBarcodeOverlayViewController, state: MBRecognizerResultState) {
+        // Creates an action sheet that will appear at the bottom of the screen
+        let imagePickerActionSheet = UIAlertController(title: "Snap/Upload Image", message: nil, preferredStyle: .actionSheet)
 
-        // this is done on background thread
-        // check for valid state
-        if state == MBRecognizerResultState.valid {
+        // If the device has a camera, add a Take Photo button to the action sheet
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+          let cameraButton = UIAlertAction(title: "Take Photo", style: .default) { alert -> Void in
+            
+              self.activityIndicator.startAnimating()                    // Reveals the View Controller's activity indicator
+              let imagePicker = UIImagePickerController()                // Creates an image picker
+              imagePicker.delegate = self                                // Assigns the current View Controller as the image picker's delegate
+              imagePicker.sourceType = .camera                           // Tells the image picker to present as a camera interface to the user
+              imagePicker.mediaTypes = [kUTTypeImage as String]          // Limits the image picker's media type to still images
+            
+              self.present(imagePicker, animated: true, completion: {    // Displays the image picker (as camera)
+                self.activityIndicator.stopAnimating()                   // Hides the activity indicator
+              })
+          }
+            
+          imagePickerActionSheet.addAction(cameraButton)
+        }
 
-            // first, pause scanning until we process all the results
-            barcodeOverlayViewController.recognizerRunnerViewController?.pauseScanning()
-
-            DispatchQueue.main.async(execute: {() -> Void in
-                // All UI interaction needs to be done on main thread
+        // Adds a Choose Existing button to the action sheet
+        let libraryButton = UIAlertAction(title: "Choose Existing", style: .default) { alert -> Void in
+            
+            self.activityIndicator.startAnimating()
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary                       // Tells the image picker to present as photo library
+            imagePicker.mediaTypes = [kUTTypeImage as String]
+            
+            self.present(imagePicker, animated: true, completion: {
+              self.activityIndicator.stopAnimating()
             })
         }
-    }
+        
+        imagePickerActionSheet.addAction(libraryButton)
 
-    func barcodeOverlayViewControllerDidTapClose(_ barcodeOverlayViewController: MBBarcodeOverlayViewController) {
-        // Your action on cancel
+        // What to do when UIAlertController is canceled
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { alert -> Void in
+            imagePickerActionSheet.dismiss(animated: true, completion: nil)
+        }
+        
+        imagePickerActionSheet.addAction(cancelButton)
+
+        // Present the alert
+        present(imagePickerActionSheet, animated: true)
+    }
+    
+    // Tesseract Image Recognition
+    func performImageRecognition(_ image: UIImage) {
+        
+        let scaledImage = image.scaledImage(1000) ?? image
+        if let tesseract = G8Tesseract(language: "eng+fra") {      // Attempt to initialize Tesseract
+            tesseract.engineMode = .tesseractCubeCombined          // One of three engine modes, slowest but most accurate
+            tesseract.pageSegmentationMode = .auto                 // Tells Tesseract it may expect multiple paragraphs
+            tesseract.image = scaledImage                          // Assign the Tesseract image to the picked image
+            tesseract.recognize()                                  // Perform OCR
+        
+            print(tesseract.recognizedText ?? "")
+            
+            ocrText = tesseract.recognizedText!
+        }
+        
+        activityIndicator.stopAnimating()
+        print("OCR Complete!!!!!")
+        self.present(CreatePassageViewController(text: selectedText!, content: ocrText), animated: true, completion: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -94,8 +122,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedText = texts![row].name // selected item
-        currentWorkingText.text = selectedText
+        selectedText = texts![row] // selected item
+        currentWorkingText.text = selectedText?.name
     }
     
     func dismissPickerView() {
@@ -115,4 +143,46 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         texts = realm.objects(Text.self)
         pickerView.reloadAllComponents()
     }
+}
+
+// This is the delegate functionality for UIImagePickerController
+extension HomeViewController: UIImagePickerControllerDelegate {
+    // Function that fires when a photo is picked
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+    guard let selectedPhoto = info[.originalImage] as? UIImage else {      // Checks to ensure there is an image value
+        dismiss(animated: true)
+        return
+    }
+
+    activityIndicator.startAnimating()
+        
+    dismiss(animated: true) {
+      self.performImageRecognition(selectedPhoto)
+    }
+  }
+}
+
+// MARK: - UIImage extension
+
+//1
+extension UIImage {
+  // 2
+  func scaledImage(_ maxDimension: CGFloat) -> UIImage? {
+    // 3
+    var scaledSize = CGSize(width: maxDimension, height: maxDimension)
+    // 4
+    if size.width > size.height {
+      scaledSize.height = size.height / size.width * scaledSize.width
+    } else {
+      scaledSize.width = size.width / size.height * scaledSize.height
+    }
+    // 5
+    UIGraphicsBeginImageContext(scaledSize)
+    draw(in: CGRect(origin: .zero, size: scaledSize))
+    let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    // 6
+    return scaledImage
+  }
 }

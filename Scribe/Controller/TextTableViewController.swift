@@ -12,23 +12,19 @@ import RealmSwift
 public class TextTableViewController: UITableViewController {
     let realm = try! Realm()
     var texts: Results<Text>?
+    var segueText: Text?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         texts = realm.objects(Text.self)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TextCell")
-        
+
         navigationItem.title = "All Texts"
-
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 600
-        //tableView.rowHeight = UITableView.automaticDimension
-        tableView.refreshControl = UIRefreshControl()
-        tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addText(sender:)))
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TextCell")
+        tableView.delegate = self
+        tableView.separatorStyle = .none
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,15 +42,8 @@ public class TextTableViewController: UITableViewController {
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let navigation = self.navigationController else {
-            fatalError("UINavigationController returned null")
-        }
-
-        navigation.pushViewController(PassageViewController(text: texts![indexPath.item]), animated: true)
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 345
+        segueText = texts![indexPath.item]
+        self.performSegue(withIdentifier: "goToPassage", sender: self)
     }
     
     public func update() {
@@ -101,5 +90,12 @@ public class TextTableViewController: UITableViewController {
         alert.addAction(addAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       if segue.identifier == "goToPassage" {
+           let destinationVC = segue.destination as! PassageViewController
+           destinationVC.text = segueText
+       }
     }
 }
