@@ -6,6 +6,7 @@ target 'Scribe' do
 
   # Pods for Scribe
 pod 'RealmSwift', '~> 4.3.0'
-pod 'PPBlinkOCR', '~> 4.0.0'
+pod 'TesseractOCRiOS'
+pod 'Eureka'
 
 end
