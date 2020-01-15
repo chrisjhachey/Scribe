@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7BE800F63086D5D22B8281B5 /* Pods_Scribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */; };
+		E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E89F623CA5DF900059447 /* AddNoteViewController.swift */; };
+		E341EC7023CAC12E00DAF292 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EC6F23CAC12E00DAF292 /* Note.swift */; };
 		E343589B23C0CFDA0027FCB2 /* TextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */; };
-		E34AAE3223C695620088D1C4 /* HTMLUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34AAE3123C695620088D1C4 /* HTMLUtility.swift */; };
+		E34AAE3223C695620088D1C4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34AAE3123C695620088D1C4 /* Utility.swift */; };
 		E34D317423C001E700B9996D /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317323C001E700B9996D /* Passage.swift */; };
 		E34D317623C0037200B9996D /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317523C0037200B9996D /* Text.swift */; };
 		E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E359A3AD23C37BA800DE726B /* SampleData.swift */; };
@@ -19,18 +21,23 @@
 		E3655D4423BD029200E08645 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4223BD029200E08645 /* Main.storyboard */; };
 		E3655D4623BD029300E08645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4523BD029300E08645 /* Assets.xcassets */; };
 		E3655D4923BD029300E08645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4723BD029300E08645 /* LaunchScreen.storyboard */; };
+		E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365C74523CF67FC00A56EFD /* PassageViewController.swift */; };
+		E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */; };
+		E39B758723CCC07100D11097 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758623CCC07100D11097 /* Document.swift */; };
 		E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */; };
-		E3BB855523C78A17007863E9 /* UIColorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BB855423C78A17007863E9 /* UIColorUtility.swift */; };
 		E3C4454E23C0124B0063BF04 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4454D23C0124B0063BF04 /* Context.swift */; };
-		E3D0F43823C5260300FFD983 /* PassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D0F43723C5260300FFD983 /* PassageViewController.swift */; };
+		E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CC642123CE670400D3903B /* CreatePassageViewController.swift */; };
+		E3F51FAF23CE0F58002C3E43 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = E3F51FAE23CE0F57002C3E43 /* tessdata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89E095B704866B6B29E39052 /* Pods-Scribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.debug.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.debug.xcconfig"; sourceTree = "<group>"; };
 		9979B1748C3F33D549DFF184 /* Pods-Scribe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.release.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.release.xcconfig"; sourceTree = "<group>"; };
+		E33E89F623CA5DF900059447 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
+		E341EC6F23CAC12E00DAF292 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewController.swift; sourceTree = "<group>"; };
-		E34AAE3123C695620088D1C4 /* HTMLUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLUtility.swift; sourceTree = "<group>"; };
+		E34AAE3123C695620088D1C4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		E34D317323C001E700B9996D /* Passage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passage.swift; sourceTree = "<group>"; };
 		E34D317523C0037200B9996D /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		E359A3AD23C37BA800DE726B /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -42,10 +49,13 @@
 		E3655D4523BD029300E08645 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3655D4823BD029300E08645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3655D4A23BD029300E08645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E365C74523CF67FC00A56EFD /* PassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageViewController.swift; sourceTree = "<group>"; };
+		E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTableViewController.swift; sourceTree = "<group>"; };
+		E39B758623CCC07100D11097 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSummaryView.swift; sourceTree = "<group>"; };
-		E3BB855423C78A17007863E9 /* UIColorUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorUtility.swift; sourceTree = "<group>"; };
 		E3C4454D23C0124B0063BF04 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		E3D0F43723C5260300FFD983 /* PassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageViewController.swift; sourceTree = "<group>"; };
+		E3CC642123CE670400D3903B /* CreatePassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePassageViewController.swift; sourceTree = "<group>"; };
+		E3F51FAE23CE0F57002C3E43 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +82,7 @@
 		E34AAE3023C695360088D1C4 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				E34AAE3123C695620088D1C4 /* HTMLUtility.swift */,
-				E3BB855423C78A17007863E9 /* UIColorUtility.swift */,
+				E34AAE3123C695620088D1C4 /* Utility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -83,6 +92,8 @@
 			children = (
 				E34D317323C001E700B9996D /* Passage.swift */,
 				E34D317523C0037200B9996D /* Text.swift */,
+				E341EC6F23CAC12E00DAF292 /* Note.swift */,
+				E39B758623CCC07100D11097 /* Document.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,7 +113,10 @@
 			children = (
 				E3655D4023BD029200E08645 /* HomeViewController.swift */,
 				E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */,
-				E3D0F43723C5260300FFD983 /* PassageViewController.swift */,
+				E33E89F623CA5DF900059447 /* AddNoteViewController.swift */,
+				E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */,
+				E3CC642123CE670400D3903B /* CreatePassageViewController.swift */,
+				E365C74523CF67FC00A56EFD /* PassageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -110,8 +124,8 @@
 		E3655D3023BD029200E08645 = {
 			isa = PBXGroup;
 			children = (
+				E3F51FAE23CE0F57002C3E43 /* tessdata */,
 				E3655D3B23BD029200E08645 /* Scribe */,
-				E34AAE3023C695360088D1C4 /* Utility */,
 				E3655D3A23BD029200E08645 /* Products */,
 				BA1A759C1FB028A05E4E536F /* Pods */,
 				F2FEF2B5F1A29130703A2E32 /* Frameworks */,
@@ -137,6 +151,7 @@
 				E34D317123C0017C00B9996D /* View */,
 				E34D317223C0018600B9996D /* Controller */,
 				E3C4454B23C011850063BF04 /* Shared */,
+				E34AAE3023C695360088D1C4 /* Utility */,
 			);
 			path = Scribe;
 			sourceTree = "<group>";
@@ -170,7 +185,6 @@
 				E3655D3623BD029200E08645 /* Frameworks */,
 				E3655D3723BD029200E08645 /* Resources */,
 				5FCD8DCDE95E2DEC080D426B /* [CP] Embed Pods Frameworks */,
-				1867ECAE9C540E6BBA135137 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -220,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3655D4923BD029300E08645 /* LaunchScreen.storyboard in Resources */,
+				E3F51FAF23CE0F58002C3E43 /* tessdata in Resources */,
 				E3655D4623BD029300E08645 /* Assets.xcassets in Resources */,
 				E3655D4423BD029200E08645 /* Main.storyboard in Resources */,
 			);
@@ -228,28 +243,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1867ECAE9C540E6BBA135137 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-resources.sh",
-				"${PODS_ROOT}/PPBlinkOCR/MicroBlink.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MicroBlink.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1ACFADD3BEC6A9D9AB5393BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,17 +274,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-frameworks.sh",
-				"${PODS_ROOT}/PPBlinkOCR/MicroBlink.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MicroBlink.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -305,18 +300,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */,
 				E34D317423C001E700B9996D /* Passage.swift in Sources */,
+				E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */,
 				E34D317623C0037200B9996D /* Text.swift in Sources */,
 				E3655D4123BD029200E08645 /* HomeViewController.swift in Sources */,
 				E343589B23C0CFDA0027FCB2 /* TextTableViewController.swift in Sources */,
-				E3BB855523C78A17007863E9 /* UIColorUtility.swift in Sources */,
 				E3C4454E23C0124B0063BF04 /* Context.swift in Sources */,
+				E341EC7023CAC12E00DAF292 /* Note.swift in Sources */,
 				E3655D3D23BD029200E08645 /* AppDelegate.swift in Sources */,
-				E3D0F43823C5260300FFD983 /* PassageViewController.swift in Sources */,
-				E34AAE3223C695620088D1C4 /* HTMLUtility.swift in Sources */,
+				E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */,
+				E34AAE3223C695620088D1C4 /* Utility.swift in Sources */,
+				E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */,
 				E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */,
 				E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */,
 				E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */,
+				E39B758723CCC07100D11097 /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +461,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7DR5C64H3Y;
 				INFOPLIST_FILE = Scribe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,6 +480,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7DR5C64H3Y;
 				INFOPLIST_FILE = Scribe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

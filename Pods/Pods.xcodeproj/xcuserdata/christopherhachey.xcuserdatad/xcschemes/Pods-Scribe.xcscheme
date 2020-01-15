@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1DA05E99838241930BE0EF679F2A33AC"
+               BlueprintIdentifier = "3EE40F8B15A3E3BB19F60D38E5F4F0D9"
                BuildableName = "Pods_Scribe.framework"
                BlueprintName = "Pods-Scribe"
                ReferencedContainer = "container:Pods.xcodeproj">
