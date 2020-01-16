@@ -43,6 +43,16 @@ public class CreatePassageViewController: FormViewController {
                 } catch {
                     print("Error: \(error)")
                 }
+                
+                self.dismiss(animated: true, completion: nil)
+            }
+        
+        <<< ButtonRow() {
+                $0.title = "Discard"
+            }
+        
+            .onCellSelection {  cell, row in
+                self.dismiss(animated: true, completion: nil)
             }
         
         super.viewDidLoad()
