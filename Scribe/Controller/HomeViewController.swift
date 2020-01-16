@@ -93,6 +93,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func performImageRecognition(_ image: UIImage) {
         
         let scaledImage = image.scaledImage(1000) ?? image
+        
         if let tesseract = G8Tesseract(language: "eng+fra") {      // Attempt to initialize Tesseract
             tesseract.engineMode = .tesseractCubeCombined          // One of three engine modes, slowest but most accurate
             tesseract.pageSegmentationMode = .auto                 // Tells Tesseract it may expect multiple paragraphs
@@ -102,6 +103,11 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             print(tesseract.recognizedText ?? "")
             
             ocrText = tesseract.recognizedText!
+        
+            // Remove line breaks form the String
+            while let rangeToReplace = ocrText.range(of: "\n") {
+                ocrText.replaceSubrange(rangeToReplace, with: " ")
+            }
         }
         
         activityIndicator.stopAnimating()
@@ -160,29 +166,5 @@ extension HomeViewController: UIImagePickerControllerDelegate {
     dismiss(animated: true) {
       self.performImageRecognition(selectedPhoto)
     }
-  }
-}
-
-// MARK: - UIImage extension
-
-//1
-extension UIImage {
-  // 2
-  func scaledImage(_ maxDimension: CGFloat) -> UIImage? {
-    // 3
-    var scaledSize = CGSize(width: maxDimension, height: maxDimension)
-    // 4
-    if size.width > size.height {
-      scaledSize.height = size.height / size.width * scaledSize.width
-    } else {
-      scaledSize.width = size.width / size.height * scaledSize.height
-    }
-    // 5
-    UIGraphicsBeginImageContext(scaledSize)
-    draw(in: CGRect(origin: .zero, size: scaledSize))
-    let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    // 6
-    return scaledImage
   }
 }
