@@ -46,6 +46,31 @@ public class TextTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "goToPassage", sender: self)
     }
     
+    public override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let unstarAction = UIContextualAction(style: .destructive, title: "Remove") { (_, _, completionHandler) in
+            completionHandler(false)
+            let deleteAlert = UIAlertController(title: "Remove Text", message: "This will remove the Text permanently", preferredStyle: .alert)
+            deleteAlert.addAction(UIAlertAction(title: "Yes, Remove", style: .destructive, handler: { (_) in
+                let textToDelete = self.texts![indexPath.row]
+                
+                do {
+                    try self.realm.write {
+                        self.realm.delete(textToDelete, cascading: true)
+                    }
+                } catch {
+                    print("Error: \(error)")
+                }
+            }))
+
+            deleteAlert.addAction(UIAlertAction(title: "Don't Remove", style: .cancel, handler: nil))
+            self.present(deleteAlert, animated: true, completion: nil)
+        }
+
+        let swipeConfig = UISwipeActionsConfiguration(actions: [unstarAction])
+        
+        return swipeConfig
+    }
+    
     public func update() {
         texts = realm.objects(Text.self)
         let vc = self.tabBarController?.viewControllers![0] as! HomeViewController

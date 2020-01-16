@@ -25,6 +25,7 @@
 		E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */; };
 		E39B758723CCC07100D11097 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758623CCC07100D11097 /* Document.swift */; };
 		E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */; };
+		E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BCB78323D0C347002B125D /* RealmUtility.swift */; };
 		E3C4454E23C0124B0063BF04 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4454D23C0124B0063BF04 /* Context.swift */; };
 		E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CC642123CE670400D3903B /* CreatePassageViewController.swift */; };
 		E3F51FAF23CE0F58002C3E43 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = E3F51FAE23CE0F57002C3E43 /* tessdata */; };
@@ -53,6 +54,7 @@
 		E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTableViewController.swift; sourceTree = "<group>"; };
 		E39B758623CCC07100D11097 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSummaryView.swift; sourceTree = "<group>"; };
+		E3BCB78323D0C347002B125D /* RealmUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtility.swift; sourceTree = "<group>"; };
 		E3C4454D23C0124B0063BF04 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		E3CC642123CE670400D3903B /* CreatePassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePassageViewController.swift; sourceTree = "<group>"; };
 		E3F51FAE23CE0F57002C3E43 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				E34AAE3123C695620088D1C4 /* Utility.swift */,
+				E3BCB78323D0C347002B125D /* RealmUtility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				E341EC7023CAC12E00DAF292 /* Note.swift in Sources */,
 				E3655D3D23BD029200E08645 /* AppDelegate.swift in Sources */,
 				E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */,
+				E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */,
 				E34AAE3223C695620088D1C4 /* Utility.swift in Sources */,
 				E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */,
 				E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */,
