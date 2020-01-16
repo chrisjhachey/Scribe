@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var selectedText: Text?
     var ocrText: String = ""
     let pickerView = UIPickerView()
+    let defaults = UserDefaults.standard
     
     @IBOutlet weak var currentWorkingText: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -34,12 +35,12 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         pickerView.setValue(color1, forKey: "textColor")
         pickerView.setValue(color2, forKey: "backgroundColor")
         currentWorkingText.inputView = pickerView
+        currentWorkingText.text = defaults.string(forKey: "workingText")
         
         dismissPickerView()
     }
     
     @IBAction func scribeItPressed(_ sender: UIButton) {
-        print("Scribe It Pushed: \(selectedText!)")
         
         // Creates an action sheet that will appear at the bottom of the screen
         let imagePickerActionSheet = UIAlertController(title: "Snap/Upload Image", message: nil, preferredStyle: .actionSheet)
@@ -72,7 +73,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             imagePicker.mediaTypes = [kUTTypeImage as String]
             
             self.present(imagePicker, animated: true, completion: {
-              self.activityIndicator.stopAnimating()
+                self.activityIndicator.stopAnimating()
             })
         }
         
@@ -87,6 +88,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
         // Present the alert
         present(imagePickerActionSheet, animated: true)
+        
+        defaults.set(selectedText?.name, forKey: "workingText")       // Set user default for current working text
     }
     
     // Tesseract Image Recognition
@@ -133,12 +136,12 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func dismissPickerView() {
-       let toolBar = UIToolbar()
-       toolBar.sizeToFit()
-       let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
-       toolBar.setItems([button], animated: true)
-       toolBar.isUserInteractionEnabled = true
-       currentWorkingText.inputAccessoryView = toolBar
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        currentWorkingText.inputAccessoryView = toolBar
     }
     
     @objc func action() {
