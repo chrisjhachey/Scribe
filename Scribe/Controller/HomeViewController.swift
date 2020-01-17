@@ -43,59 +43,62 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func scribeItPressed(_ sender: UIButton) {
         
-        // Creates an action sheet that will appear at the bottom of the screen
-        let imagePickerActionSheet = UIAlertController(title: "Snap/Upload Image", message: nil, preferredStyle: .actionSheet)
+        if let selectedText = selectedText {
+            
+            // Creates an action sheet that will appear at the bottom of the screen
+            let imagePickerActionSheet = UIAlertController(title: "Snap/Upload Image", message: nil, preferredStyle: .actionSheet)
 
-        // If the device has a camera, add a Take Photo button to the action sheet
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-          let cameraButton = UIAlertAction(title: "Take Photo", style: .default) { alert -> Void in
-            
-              self.activityIndicator.startAnimating()                    // Reveals the View Controller's activity indicator
-              let imagePicker = UIImagePickerController()                // Creates an image picker
-              imagePicker.delegate = self                                // Assigns the current View Controller as the image picker's delegate
-              imagePicker.sourceType = .camera                           // Tells the image picker to present as a camera interface to the user
-              imagePicker.mediaTypes = [kUTTypeImage as String]          // Limits the image picker's media type to still images
-            
-              self.present(imagePicker, animated: true, completion: {    // Displays the image picker (as camera)
-                self.activityIndicator.stopAnimating()                   // Hides the activity indicator
-              })
-          }
-            
-          imagePickerActionSheet.addAction(cameraButton)
+            // If the device has a camera, add a Take Photo button to the action sheet
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let cameraButton = UIAlertAction(title: "Take Photo", style: .default) { alert -> Void in
+                    
+                    self.activityIndicator.startAnimating()                    // Reveals the View Controller's activity indicator
+                    let imagePicker = UIImagePickerController()                // Creates an image picker
+                    imagePicker.delegate = self                                // Assigns the current View Controller as the image picker's delegate
+                    imagePicker.sourceType = .camera                           // Tells the image picker to present as a camera interface to the user
+                    imagePicker.mediaTypes = [kUTTypeImage as String]          // Limits the image picker's media type to still images
+                    
+                    self.present(imagePicker, animated: true, completion: {    // Displays the image picker (as camera)
+                        self.activityIndicator.stopAnimating()                 // Hides the activity indicator
+                    })
+                }
+                    
+                  imagePickerActionSheet.addAction(cameraButton)
+                }
+
+            // Adds a Choose Existing button to the action sheet
+            let libraryButton = UIAlertAction(title: "Choose Existing", style: .default) { alert -> Void in
+                    
+                self.activityIndicator.startAnimating()
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary                       // Tells the image picker to present as photo library
+                imagePicker.mediaTypes = [kUTTypeImage as String]
+                    
+                self.present(imagePicker, animated: true, completion: {
+                    self.activityIndicator.stopAnimating()
+                })
+            }
+                
+            imagePickerActionSheet.addAction(libraryButton)
+
+            // What to do when UIAlertController is canceled
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { alert -> Void in
+                imagePickerActionSheet.dismiss(animated: true, completion: nil)
+            }
+                
+            imagePickerActionSheet.addAction(cancelButton)
+
+            // Present the alert
+            present(imagePickerActionSheet, animated: true)
+                
+            defaults.set(selectedText.name, forKey: "workingText")       // Set user default for current working text
         }
-
-        // Adds a Choose Existing button to the action sheet
-        let libraryButton = UIAlertAction(title: "Choose Existing", style: .default) { alert -> Void in
-            
-            self.activityIndicator.startAnimating()
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary                       // Tells the image picker to present as photo library
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            
-            self.present(imagePicker, animated: true, completion: {
-                self.activityIndicator.stopAnimating()
-            })
-        }
-        
-        imagePickerActionSheet.addAction(libraryButton)
-
-        // What to do when UIAlertController is canceled
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { alert -> Void in
-            imagePickerActionSheet.dismiss(animated: true, completion: nil)
-        }
-        
-        imagePickerActionSheet.addAction(cancelButton)
-
-        // Present the alert
-        present(imagePickerActionSheet, animated: true)
-        
-        defaults.set(selectedText?.name, forKey: "workingText")       // Set user default for current working text
     }
-    
+            
     // Tesseract Image Recognition
     func performImageRecognition(_ image: UIImage) {
-        
+                
         let scaledImage = image.scaledImage(1000) ?? image
 
         if let tesseract = G8Tesseract(language: "eng+fra") {      // Attempt to initialize Tesseract
@@ -103,20 +106,20 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             tesseract.pageSegmentationMode = .auto                 // Tells Tesseract it may expect multiple paragraphs
             tesseract.image = scaledImage                          // Assign the Tesseract image to the picked image
             tesseract.recognize()                                  // Perform OCR
-        
+                
             print(tesseract.recognizedText ?? "")
-            
+                    
             ocrText = tesseract.recognizedText!
-        
-            // Remove line breaks form the String
-            while let rangeToReplace = ocrText.range(of: "\n") {
-                ocrText.replaceSubrange(rangeToReplace, with: " ")
+                
+                // Remove line breaks form the String
+                while let rangeToReplace = ocrText.range(of: "\n") {
+                    ocrText.replaceSubrange(rangeToReplace, with: " ")
+                }
             }
-        }
-        
-        activityIndicator.stopAnimating()
-        print("OCR Complete!!!!!")
-        self.present(CreatePassageViewController(text: selectedText!, content: ocrText), animated: true, completion: nil)
+                
+            activityIndicator.stopAnimating()
+            print("OCR Complete!!!!!")
+            self.present(CreatePassageViewController(text: selectedText!, content: ocrText), animated: true, completion: nil)
     }
     
     // Fires when cropping is complete
