@@ -29,7 +29,7 @@ public class PassageViewController: UIViewController {
         }
 
         let stackView = UIStackView(arrangedSubviews: stack)
-        stackView.frame = CGRect(x: 50, y: 175, width: 300, height: 400)
+        stackView.frame = CGRect(x: 50, y: 175, width: 300, height: 350)
         stackView.distribution = .fillEqually
         stackView.axis = NSLayoutConstraint.Axis.vertical
         stackView.spacing = 8

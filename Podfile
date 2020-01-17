@@ -7,6 +7,7 @@ target 'Scribe' do
   # Pods for Scribe
 pod 'RealmSwift', '~> 4.3.0'
 pod 'TesseractOCRiOS'
+pod 'CropViewController'
 pod 'Eureka'
 
 end

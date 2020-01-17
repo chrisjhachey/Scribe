@@ -60,6 +60,8 @@ public class TextTableViewController: UITableViewController {
                 } catch {
                     print("Error: \(error)")
                 }
+                
+                self.update()
             }))
 
             deleteAlert.addAction(UIAlertAction(title: "Don't Remove", style: .cancel, handler: nil))

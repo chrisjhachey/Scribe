@@ -10,8 +10,9 @@ import UIKit
 import MobileCoreServices
 import RealmSwift
 import TesseractOCR
+import CropViewController
 
-class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate, CropViewControllerDelegate {
     let realm = try! Realm()
     var texts: Results<Text>?
     var selectedText: Text?
@@ -96,7 +97,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func performImageRecognition(_ image: UIImage) {
         
         let scaledImage = image.scaledImage(1000) ?? image
-        
+
         if let tesseract = G8Tesseract(language: "eng+fra") {      // Attempt to initialize Tesseract
             tesseract.engineMode = .tesseractCubeCombined          // One of three engine modes, slowest but most accurate
             tesseract.pageSegmentationMode = .auto                 // Tells Tesseract it may expect multiple paragraphs
@@ -116,6 +117,17 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         activityIndicator.stopAnimating()
         print("OCR Complete!!!!!")
         self.present(CreatePassageViewController(text: selectedText!, content: ocrText), animated: true, completion: nil)
+    }
+    
+    // Fires when cropping is complete
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        cropViewController.dismiss(animated: true, completion: nil)
+        self.performImageRecognition(image)
+    }
+    
+    // Fires when cropping is canceled
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true, completion: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -167,7 +179,10 @@ extension HomeViewController: UIImagePickerControllerDelegate {
     activityIndicator.startAnimating()
         
     dismiss(animated: true) {
-      self.performImageRecognition(selectedPhoto)
+        let cropViewController = CropViewController(image: selectedPhoto)
+        cropViewController.delegate = self
+        
+        self.present(cropViewController, animated: true, completion: nil)
     }
   }
 }
