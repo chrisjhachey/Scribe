@@ -20,7 +20,7 @@ func getText(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(string(theTexts)))
 
-	// fmt.Println(string(theTexts))
+	fmt.Println(string(theTexts))
 }
 
 func postText(w http.ResponseWriter, r *http.Request) {
