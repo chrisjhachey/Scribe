@@ -22,6 +22,7 @@
 		E3655D4623BD029300E08645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4523BD029300E08645 /* Assets.xcassets */; };
 		E3655D4923BD029300E08645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4723BD029300E08645 /* LaunchScreen.storyboard */; };
 		E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365C74523CF67FC00A56EFD /* PassageViewController.swift */; };
+		E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398FF0623FC638300A79FF0 /* ScribeAPI.swift */; };
 		E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */; };
 		E39B758723CCC07100D11097 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758623CCC07100D11097 /* Document.swift */; };
 		E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */; };
@@ -51,6 +52,7 @@
 		E3655D4823BD029300E08645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3655D4A23BD029300E08645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E365C74523CF67FC00A56EFD /* PassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageViewController.swift; sourceTree = "<group>"; };
+		E398FF0623FC638300A79FF0 /* ScribeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribeAPI.swift; sourceTree = "<group>"; };
 		E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTableViewController.swift; sourceTree = "<group>"; };
 		E39B758623CCC07100D11097 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSummaryView.swift; sourceTree = "<group>"; };
@@ -153,10 +155,19 @@
 				E34D317023C0015600B9996D /* Model */,
 				E34D317123C0017C00B9996D /* View */,
 				E34D317223C0018600B9996D /* Controller */,
+				E398FF0523FC635000A79FF0 /* Networking */,
 				E3C4454B23C011850063BF04 /* Shared */,
 				E34AAE3023C695360088D1C4 /* Utility */,
 			);
 			path = Scribe;
+			sourceTree = "<group>";
+		};
+		E398FF0523FC635000A79FF0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E398FF0623FC638300A79FF0 /* ScribeAPI.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		E3C4454B23C011850063BF04 /* Shared */ = {
@@ -317,6 +328,7 @@
 				E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */,
 				E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */,
 				E34AAE3223C695620088D1C4 /* Utility.swift in Sources */,
+				E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */,
 				E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */,
 				E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */,
 				E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */,

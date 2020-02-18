@@ -39,6 +39,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         currentWorkingText.text = defaults.string(forKey: "workingText")
         
         dismissPickerView()
+        
+        let api = ScribeAPI()
+        api.getTexts()
     }
     
     @IBAction func scribeItPressed(_ sender: UIButton) {
