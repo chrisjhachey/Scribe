@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func getText(w http.ResponseWriter, r *http.Request) {
+func getTexts(w http.ResponseWriter, r *http.Request) {
 	theTexts, err := model.RetrieveTexts()
 
 	if err != nil {
@@ -30,11 +30,13 @@ func postText(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	model.CreateText(b)
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(`{"message": "post called on Text"}`))
 
-	fmt.Println(string(b))
+	//fmt.Println(string(b))
 }
 
 func putText(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +59,7 @@ func notFoundText(w http.ResponseWriter, r *http.Request) {
 
 // SetTextHandlerFunctions sets the handler functions for the Router and adds a matcher for the HTTP verb
 func SetTextHandlerFunctions(router *mux.Router) {
-	router.HandleFunc("/text", getText).Methods(http.MethodGet)
+	router.HandleFunc("/text", getTexts).Methods(http.MethodGet)
 	router.HandleFunc("/text", postText).Methods(http.MethodPost)
 	router.HandleFunc("/text", putText).Methods(http.MethodPut)
 	router.HandleFunc("/text", deleteText).Methods(http.MethodDelete)

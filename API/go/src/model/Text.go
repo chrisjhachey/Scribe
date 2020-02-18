@@ -24,6 +24,7 @@ type Text struct {
 // RetrieveTexts is used to get texts
 func RetrieveTexts() ([]byte, error) {
 	var texts = []Text{}
+
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
 	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
 	defer db.Close()
@@ -48,4 +49,22 @@ func RetrieveTexts() ([]byte, error) {
 	}
 
 	return json.Marshal(texts)
+}
+
+// CreateText is used to  create a new Text
+func CreateText(responseBody []byte) {
+	var text Text
+	json.Unmarshal(responseBody, &text)
+
+	// Opens the MYSQL database using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	defer db.Close()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// Perform a db.Query select
+	insert, err := db.Query("INSERT INTO Text (name, author) VALUES(?, ?)", text.Name, text.Author)
+	defer insert.Close()
 }
