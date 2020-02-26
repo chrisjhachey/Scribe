@@ -7,33 +7,81 @@
 //
 
 import Foundation
+import PromiseKit
 
 public struct ScribeAPI {
-    let baseURL = "http://www.localhost:8080/api/v1/"
+    // Singleton
+    public static let shared = ScribeAPI()
     
-    func getTexts() {
-        let urlString = baseURL + "text"
-        performRequest(urlString: urlString)
-    }
+    // Defines the base URL for the API
+    let baseURL = "http://localhost:8080/api/v1/"
     
-    func performRequest(urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url, completionHandler: handle(data:response:error:))
-            task.resume()
+    // Generic retrieve resource function
+    func get<T: Entity>(resourcePath: String) -> Promise<[T]> {
+        let urlString = baseURL + resourcePath
+        let url = URL(string: urlString)
+        let httpVerb = "GET"
+        
+        return Promise { seal in
+            firstly {
+                performRequest(url: url!, verb: httpVerb)
+            }.done { results in
+                seal.fulfill(self.makeModel(jsonData: results.data))
+            }.catch { error in
+                seal.reject(error)
+            }
         }
     }
     
-    func handle(data: Data?, response: URLResponse?, error: Error?) {
-        if error != nil {
-            print(error!)
-            return
+    // Performs a Network Request
+    func performRequest(url: URL, verb: String) -> Promise<NetworkResponse> {
+        
+        // Define the headers for this request
+        let headerDictionary: [String: String] = [ "Accept": "application/json", "Accept-Encoding": "gzip" ]
+        
+        // Create a request from the URL
+        var request = URLRequest(url: url)
+        request.httpMethod = verb
+        
+        // Add Headers to the Request
+        addRequestHeaders(request: &request, headers: headerDictionary)
+        
+        // Create response object
+        let response = NetworkResponse()
+        
+        return Promise { seal in
+            firstly {
+                URLSession.shared.dataTask(.promise, with: request).validate()
+            }.done { results in
+                response.data = results.data
+                response.url = request.url!.absoluteString
+                response.contentType = results.response.mimeType!
+                
+                seal.fulfill(response)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    // Deserializes JSON into Swift Models
+    func makeModel<T: Entity>(jsonData: Data) -> [T] {
+        var entities = [T]()
+        let decoder = JSONDecoder()
+        
+        do {
+            entities = try decoder.decode([T].self, from: jsonData)
+        } catch {
+            print(error)
         }
         
-        if let safeData = data {
-            let dataString = String(data: safeData, encoding: .utf8)
-            print(dataString)
-            print("Hachey")
+        return entities
+    }
+    
+    // Adds a dictionary of headers to a URLRequest
+    private func addRequestHeaders(request: inout URLRequest, headers: [String: String] = [:]) {
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
         }
     }
 }

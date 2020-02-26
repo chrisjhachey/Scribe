@@ -9,5 +9,6 @@ pod 'RealmSwift', '~> 4.3.0'
 pod 'TesseractOCRiOS'
 pod 'CropViewController'
 pod 'Eureka'
+pod "PromiseKit", "~> 6.8"
 
 end

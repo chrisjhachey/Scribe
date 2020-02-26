@@ -1,6 +1,15 @@
 PODS:
   - CropViewController (2.5.2)
   - Eureka (5.1.0)
+  - PromiseKit (6.12.0):
+    - PromiseKit/CorePromise (= 6.12.0)
+    - PromiseKit/Foundation (= 6.12.0)
+    - PromiseKit/UIKit (= 6.12.0)
+  - PromiseKit/CorePromise (6.12.0)
+  - PromiseKit/Foundation (6.12.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.12.0):
+    - PromiseKit/CorePromise
   - Realm (4.3.0):
     - Realm/Headers (= 4.3.0)
   - Realm/Headers (4.3.0)
@@ -11,6 +20,7 @@ PODS:
 DEPENDENCIES:
   - CropViewController
   - Eureka
+  - PromiseKit (~> 6.8)
   - RealmSwift (~> 4.3.0)
   - TesseractOCRiOS
 
@@ -18,6 +28,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CropViewController
     - Eureka
+    - PromiseKit
     - Realm
     - RealmSwift
     - TesseractOCRiOS
@@ -25,10 +36,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   CropViewController: 1aac40093c5739e60d992b04724a55d12a689a4c
   Eureka: 18a5076dcf0c41f9cd9748aa1c42f4d11434bdae
+  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   Realm: 9357c3589555793e1860a7104a7412bca4a48d99
   RealmSwift: 402f1e379a8ef82c635313037b043f0f06de880c
   TesseractOCRiOS: 2c189465f86abb030d0c5141c90da9705b647854
 
-PODFILE CHECKSUM: bdc17c2baefb49b2d34c9c8907fc22006c4c67d5
+PODFILE CHECKSUM: 7123a7001fc21f4abdcf765088ab21d778f3585b
 
 COCOAPODS: 1.6.1

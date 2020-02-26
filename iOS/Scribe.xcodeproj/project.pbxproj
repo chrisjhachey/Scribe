@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7BE800F63086D5D22B8281B5 /* Pods_Scribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */; };
+		E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3129FCA24057EFC00B209F6 /* Entity.swift */; };
 		E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E89F623CA5DF900059447 /* AddNoteViewController.swift */; };
 		E341EC7023CAC12E00DAF292 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EC6F23CAC12E00DAF292 /* Note.swift */; };
 		E343589B23C0CFDA0027FCB2 /* TextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */; };
+		E344A893240564BB00779DE9 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344A892240564BB00779DE9 /* NetworkResponse.swift */; };
 		E34AAE3223C695620088D1C4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34AAE3123C695620088D1C4 /* Utility.swift */; };
 		E34D317423C001E700B9996D /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317323C001E700B9996D /* Passage.swift */; };
 		E34D317623C0037200B9996D /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317523C0037200B9996D /* Text.swift */; };
@@ -36,9 +38,11 @@
 		3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89E095B704866B6B29E39052 /* Pods-Scribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.debug.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.debug.xcconfig"; sourceTree = "<group>"; };
 		9979B1748C3F33D549DFF184 /* Pods-Scribe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.release.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.release.xcconfig"; sourceTree = "<group>"; };
+		E3129FCA24057EFC00B209F6 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		E33E89F623CA5DF900059447 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
 		E341EC6F23CAC12E00DAF292 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewController.swift; sourceTree = "<group>"; };
+		E344A892240564BB00779DE9 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		E34AAE3123C695620088D1C4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		E34D317323C001E700B9996D /* Passage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passage.swift; sourceTree = "<group>"; };
 		E34D317523C0037200B9996D /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 				E34D317523C0037200B9996D /* Text.swift */,
 				E341EC6F23CAC12E00DAF292 /* Note.swift */,
 				E39B758623CCC07100D11097 /* Document.swift */,
+				E3129FCA24057EFC00B209F6 /* Entity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				E398FF0623FC638300A79FF0 /* ScribeAPI.swift */,
+				E344A892240564BB00779DE9 /* NetworkResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -290,6 +296,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
@@ -300,6 +307,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
@@ -331,6 +339,8 @@
 				E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */,
 				E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */,
 				E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */,
+				E344A893240564BB00779DE9 /* NetworkResponse.swift in Sources */,
+				E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */,
 				E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */,
 				E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */,
 				E39B758723CCC07100D11097 /* Document.swift in Sources */,

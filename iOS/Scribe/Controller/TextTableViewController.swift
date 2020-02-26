@@ -8,33 +8,34 @@
 
 import UIKit
 import RealmSwift
+import PromiseKit
 
 public class TextTableViewController: UITableViewController {
     let realm = try! Realm()
-    var texts: Results<Text>?
+    var texts = [Text]()
     var segueText: Text?
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        texts = realm.objects(Text.self)
-
         navigationItem.title = "All Texts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addText(sender:)))
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TextCell")
         tableView.delegate = self
         tableView.separatorStyle = .none
+        
+        update()
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return texts?.count ?? 1
+        return texts.count
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-        let text = texts?[indexPath.item]
-        let summary = TextSummaryView(name: text!.name, author: text!.author!)
+        let text = texts[indexPath.item]
+        let summary = TextSummaryView(name: text.Name, author: text.Author!)
         
         cell.addSubview(summary)
     
@@ -42,7 +43,7 @@ public class TextTableViewController: UITableViewController {
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        segueText = texts![indexPath.item]
+        segueText = texts[indexPath.item]
         self.performSegue(withIdentifier: "goToPassage", sender: self)
     }
     
@@ -51,15 +52,9 @@ public class TextTableViewController: UITableViewController {
             completionHandler(false)
             let deleteAlert = UIAlertController(title: "Remove Text", message: "This will remove the Text permanently", preferredStyle: .alert)
             deleteAlert.addAction(UIAlertAction(title: "Yes, Remove", style: .destructive, handler: { (_) in
-                let textToDelete = self.texts![indexPath.row]
+                let textToDelete = self.texts[indexPath.row]
                 
-                do {
-                    try self.realm.write {
-                        self.realm.delete(textToDelete, cascading: true)
-                    }
-                } catch {
-                    print("Error: \(error)")
-                }
+                // TODO API delete on textToDelete
                 
                 self.update()
             }))
@@ -74,10 +69,15 @@ public class TextTableViewController: UITableViewController {
     }
     
     public func update() {
-        texts = realm.objects(Text.self)
-        let vc = self.tabBarController?.viewControllers![0] as! HomeViewController
-        vc.textsUpdated()
-        self.tableView.reloadData()
+        
+        firstly { () -> Promise<[Text]> in
+            ScribeAPI.shared.get(resourcePath: "text")
+        }.done { results in
+            self.texts = results
+            self.tableView.reloadData()
+        }.catch { error in
+            print(error)
+        }
     }
     
     @objc public func addText(sender: UIBarButtonItem) {
@@ -97,17 +97,12 @@ public class TextTableViewController: UITableViewController {
         }
         
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
-            let text = Text(name: nameTextField.text!)
-            text.author = authorTextField.text!
+            let text = Text()
+            text.Name = nameTextField.text!
+            text.Author = authorTextField.text!
             
-            do {
-                try self.realm.write {
-                    self.realm.add(text)
-                    self.update()
-                }
-            } catch {
-                print("Failed to initialize Realm: \(error)")
-            }
+            self.texts.append(text)
+            self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { action in

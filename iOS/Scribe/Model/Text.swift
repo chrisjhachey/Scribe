@@ -10,27 +10,40 @@ import Foundation
 import RealmSwift
 import Realm
 
-public class Text: Object {
-    @objc dynamic var name: String = ""
-    @objc dynamic var author: String?
-    var passages = List<Passage>()
+public class Text: Entity {
+    public var ID: Int = 0
     
-    public init(name: String) {
-        self.name = name
-        
-        super.init()
-    }
+    public var Name: String = ""
+    public var Author: String?
+    //public var Passages: [Passage]?
     
-    required init(value: Any, schema: RLMSchema) {
-        fatalError("init(value:schema:) has not been implemented")
-    }
-    
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        super.init()
-    }
-    
-    required init() {
-        self.name = ""
-        super.init()
-    }
+//    /// JSON Serialization Keys
+//    private enum Keys: String, CodingKey {
+//        case id
+//        case name
+//        case author
+//        case passages
+//    }
+//
+//    required public init(){}
+//
+//    /// Initialize from JSON Decoder
+//    public required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: Keys.self)
+//
+//        id = try container.decode(String.self, forKey: Keys.id)
+//        name = try container.decode(String.self, forKey: Keys.name)
+//        author = try container.decode(String.self, forKey: Keys.author)
+//        passages = try container.decode([Passage].self, forKey: Keys.passages)
+//    }
+//
+//    /// Encode to JSON Decoder
+//    public func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: Keys.self)
+//
+//        try container.encode(id, forKey: Keys.id)
+//        try container.encode(name, forKey: Keys.name)
+//        try container.encode(author, forKey: Keys.author)
+//        try container.encode(passages, forKey: Keys.passages)
+//    }
 }

@@ -16,8 +16,23 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func getAllPassages(w http.ResponseWriter, r *http.Request) {
+	thePassages, err := model.GetAllPassages()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(string(thePassages)))
+}
+
 func getPassages(w http.ResponseWriter, r *http.Request) {
-	thePassages, err := model.GetPassages()
+	params := mux.Vars(r)
+	theID := params["textid"]
+
+	thePassages, err := model.GetPassages(theID)
 
 	if err != nil {
 		panic(err.Error())
@@ -62,7 +77,8 @@ func notFoundPassage(w http.ResponseWriter, r *http.Request) {
 
 // SetPassageHandlerFunctions sets the handler functions for the Router and adds a matcher for the HTTP verb
 func SetPassageHandlerFunctions(router *mux.Router) {
-	router.HandleFunc("/passage", getPassages).Methods(http.MethodGet)
+	router.HandleFunc("/passage", getAllPassages)
+	router.HandleFunc("/{textid}/passage", getPassages)
 	router.HandleFunc("/passage", postPassage).Methods(http.MethodPost)
 	router.HandleFunc("/passage", putPassage).Methods(http.MethodPut)
 	router.HandleFunc("/passage", deletePassage).Methods(http.MethodDelete)

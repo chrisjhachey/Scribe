@@ -34,15 +34,15 @@ public class CreatePassageViewController: FormViewController {
         
             .onCellSelection {  cell, row in
                 let passage = Passage()
-                passage.content = self.form.rowBy(tag: "noteTextArea")?.baseValue as! String
+                passage.Content = self.form.rowBy(tag: "noteTextArea")?.baseValue as! String
                 
-                do {
-                    try self.realm.write {
-                        self.text.passages.append(passage)
-                    }
-                } catch {
-                    print("Error: \(error)")
-                }
+//                do {
+//                    try self.realm.write {
+//                        self.text.passages.append(passage)
+//                    }
+//                } catch {
+//                    print("Error: \(error)")
+//                }
                 
                 self.dismiss(animated: true, completion: nil)
             }

@@ -11,16 +11,16 @@ import RealmSwift
 
 public class Utility {
 
-    public func getPassageView(passage: Passage, index: Int) -> UIStackView {
+    public func getPassageView(passage: Passage) -> UIStackView {
         
         let textView = UITextView()
-        let attributedPassage = NSMutableAttributedString(string: "\"\(passage.content)\"", attributes: [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 12)!])
+        let attributedPassage = NSMutableAttributedString(string: "\"\(passage.Content)\"", attributes: [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 12)!])
         textView.attributedText = attributedPassage
         
         let button = UIButton(type: .system)
         button.setTitle("+", for: .normal)
         button.addTarget(self, action: #selector(addNote), for: .touchUpInside)
-        button.accessibilityIdentifier = String(index)
+        button.accessibilityIdentifier = String(passage.ID)
         
         var stack = [UIView]()
         stack.append(textView)

@@ -14,7 +14,7 @@ import CropViewController
 
 class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UINavigationControllerDelegate, CropViewControllerDelegate {
     let realm = try! Realm()
-    var texts: Results<Text>?
+    var texts = [Text]()
     var selectedText: Text?
     var ocrText: String = ""
     let pickerView = UIPickerView()
@@ -27,7 +27,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
         
-        texts = realm.objects(Text.self)
+        //texts = realm.objects(Text.self)
         
         pickerView.delegate = self
         let color1 = UIColor.brown
@@ -39,9 +39,6 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         currentWorkingText.text = defaults.string(forKey: "workingText")
         
         dismissPickerView()
-        
-        let api = ScribeAPI()
-        api.getTexts()
     }
     
     @IBAction func scribeItPressed(_ sender: UIButton) {
@@ -95,7 +92,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             // Present the alert
             present(imagePickerActionSheet, animated: true)
                 
-            defaults.set(selectedText.name, forKey: "workingText")       // Set user default for current working text
+            defaults.set(selectedText.Name, forKey: "workingText")       // Set user default for current working text
         }
     }
             
@@ -141,16 +138,16 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return texts!.count // number of dropdown items
+        return texts.count // number of dropdown items
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return texts![row].name // dropdown item
+        return texts[row].Name // dropdown item
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedText = texts![row] // selected item
-        currentWorkingText.text = selectedText?.name
+        selectedText = texts[row] // selected item
+        currentWorkingText.text = selectedText?.Name
     }
     
     func dismissPickerView() {
@@ -167,8 +164,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func textsUpdated() {
-        texts = realm.objects(Text.self)
-        pickerView.reloadAllComponents()
+//        texts = realm.objects(Text.self)
+//        pickerView.reloadAllComponents()
     }
 }
 

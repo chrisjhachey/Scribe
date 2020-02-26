@@ -12,7 +12,7 @@ import RealmSwift
 
 public class Note: Object {
     @objc dynamic var content: String = ""
-    var passage = LinkingObjects(fromType: Passage.self, property: "notes")
+    //var passage = LinkingObjects(fromType: Passage.self, property: "notes")
     
     required init() {
         super.init()

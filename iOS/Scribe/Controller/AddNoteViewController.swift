@@ -33,13 +33,13 @@ public class AddNoteViewController: FormViewController {
             let note = Note()
             note.content = noteContent
             
-            do {
-                try realm.write {
-                    passage.notes.append(note)
-                }
-            } catch {
-                print("Error: \(error)")
-            }
+//            do {
+//                try realm.write {
+//                    passage.notes.append(note)
+//                }
+//            } catch {
+//                print("Error: \(error)")
+//            }
             
             navigationController?.popViewController(animated: true)
         }

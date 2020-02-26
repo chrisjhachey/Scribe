@@ -9,33 +9,46 @@
 import Foundation
 import UIKit
 import RealmSwift
+import PromiseKit
 
 public class PassageViewController: UIViewController {
     var text: Text!
+    var passages = [Passage]()
     
     @IBOutlet weak var textName: UILabel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let util = Utility()
-        var stack = [UIView]()
-        
-        let attributedHeader = NSMutableAttributedString(string: "\(text.name)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
-        textName.attributedText = attributedHeader
+        update()
+    }
+    
+    func update() {
+        firstly { () -> Promise<[Passage]> in
+            ScribeAPI.shared.get(resourcePath: "\(text.ID)/passage")
+        }.done { results in
+            self.passages = results
+            
+            let util = Utility()
+            var stack = [UIView]()
+            
+            let attributedHeader = NSMutableAttributedString(string: "\(self.text.Name)", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
+            self.textName.attributedText = attributedHeader
 
-        for passage in text.passages {
-            stack.append(util.getPassageView(passage: passage, index: text.passages.index(of: passage)!))
+            for passage in self.passages {
+                stack.append(util.getPassageView(passage: passage))
+            }
+
+            let stackView = UIStackView(arrangedSubviews: stack)
+            stackView.frame = CGRect(x: 50, y: 175, width: 300, height: 350)
+            stackView.distribution = .fillEqually
+            stackView.axis = NSLayoutConstraint.Axis.vertical
+            stackView.spacing = 8
+            
+            self.view.addSubview(stackView)
+            self.view.backgroundColor = .white
+        }.catch { error in
+            print(error)
         }
-
-        let stackView = UIStackView(arrangedSubviews: stack)
-        stackView.frame = CGRect(x: 50, y: 175, width: 300, height: 350)
-        stackView.distribution = .fillEqually
-        stackView.axis = NSLayoutConstraint.Axis.vertical
-        stackView.spacing = 8
-        
-        view.backgroundColor = .white
-        view.addSubview(stackView)
     }
     
     @objc func addNote(sender: UIButton!) {
@@ -45,6 +58,7 @@ public class PassageViewController: UIViewController {
             fatalError("UINavigationController returned null")
         }
     
-        navigation.pushViewController(AddNoteViewController(passage: text.passages[Int(sender.accessibilityIdentifier!)!]), animated: true)
+        // TODO this accesibility identifier for the button needs to correspond to the Passage.ID associated for the particular passageView
+        navigation.pushViewController(AddNoteViewController(passage: passages[Int(sender.accessibilityIdentifier!)!]), animated: true)
     }
 }

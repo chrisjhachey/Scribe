@@ -10,20 +10,15 @@ import Foundation
 import Realm
 import RealmSwift
 
-public class Passage: Object {
-    @objc dynamic var content: String = ""
-    var text = LinkingObjects(fromType: Text.self, property: "passages")
-    var notes = List<Note>()
+public class Passage: Entity, Equatable {
+    public var ID: Int = 0
     
-    required init() {
-        super.init()
-    }
+    public var Content: String = ""
+    //var notes = List<Note>()
     
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        fatalError("init(realm:schema:) has not been implemented")
-    }
     
-    required init(value: Any, schema: RLMSchema) {
-        fatalError("init(value:schema:) has not been implemented")
+    // TODO: Remove, For some reason needed to add this to i could add PAssages onto stack view
+    public static func == (lhs: Passage, rhs: Passage) -> Bool {
+        return true
     }
 }
