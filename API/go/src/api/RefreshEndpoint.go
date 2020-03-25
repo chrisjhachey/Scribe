@@ -11,8 +11,6 @@ import (
 )
 
 func getRefreshToken(w http.ResponseWriter, r *http.Request) {
-	//w.Write([]byte(`"message": "Refresh endpoint hit!"`))
-
 	bytes, err := ioutil.ReadAll(r.Body)
 
 	if err != nil {
