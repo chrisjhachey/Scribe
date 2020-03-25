@@ -42,7 +42,7 @@ public struct ScribeAPI {
             firstly {
                 performRequest(url: url!, verb: httpVerb, data: nil)
             }.done { results in
-                seal.fulfill("Success")
+                seal.fulfill("Delete Successfull!")
             }.catch { error in
                 seal.reject(error)
             }
@@ -58,6 +58,8 @@ public struct ScribeAPI {
         let encoder = JSONEncoder()
         let data = try! encoder.encode(entity)
         
+        print("JSON passed to request body: \(String(decoding: data, as: UTF8.self))")
+        
         return Promise { seal in
             firstly {
                 performRequest(url: url!, verb: httpVerb, data: data)
@@ -70,14 +72,21 @@ public struct ScribeAPI {
     }
     
     // Performs a Network Request
-    func performRequest(url: URL, verb: String, data: Data?) -> Promise<NetworkResponse> {
+    func performRequest(url: URL, verb: String?, data: Data?) -> Promise<NetworkResponse> {
         
         // Define the headers for this request
-        let headerDictionary: [String: String] = [ "Accept": "application/json", "Accept-Encoding": "gzip" ]
+        var headerDictionary: [String: String] = [ "Accept": "application/json", "Accept-Encoding": "gzip" ]
+        
+        if let token = Context.shared.token {
+            headerDictionary["Scribe-Token"] =  "\(token.Token)"
+        }
         
         // Create a request from the URL
         var request = URLRequest(url: url)
-        request.httpMethod = verb
+        
+        if let verb = verb {
+            request.httpMethod = verb
+        }
         
         // If there is a JSON body add it to the Request
         if let data = data {
@@ -96,10 +105,16 @@ public struct ScribeAPI {
             }.done { results in
                 let str = String(decoding: results.data, as: UTF8.self)
                 print(str)
-                print("Hachey")
+                
                 response.data = results.data
                 response.url = request.url!.absoluteString
                 response.contentType = results.response.mimeType!
+                
+                if let urlResponse = results.response as? HTTPURLResponse {
+                    if let userId = urlResponse.allHeaderFields["Userid"] as? String {
+                        Context.shared.userId = Int(userId)
+                    }
+                }
                 
                 seal.fulfill(response)
             }.catch { error in

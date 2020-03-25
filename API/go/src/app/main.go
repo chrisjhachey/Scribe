@@ -19,6 +19,9 @@ func main() {
 	// Sets the handler functions for each resource
 	api.SetTextHandlerFunctions(sr)
 	api.SetPassageHandlerFunctions(sr)
+	api.SetUserHandlerFunctions(sr)
+	api.SetTokenHandlerFunctions(sr)
+	api.SetRefreshHandlerFunctions(sr)
 
 	// Listens on the TCP network address and then calls Serve with handler to handle requests on incoming connections
 	log.Fatal(http.ListenAndServe(":8080", r))

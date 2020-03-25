@@ -8,31 +8,34 @@
 
 import UIKit
 import RealmSwift
+import GoogleSignIn
+import GoogleAPIClientForREST
+import GTMSessionFetcher
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+    public static var window: UIWindow?
+    public static let googleDriveService = GTLRDriveService()
+    public static var googleUser: GIDGoogleUser?
+    public static var uploadFolderID: String?
+    public static var appRootDelegate: ContainerViewController?
+    public static var signedIntoGoogleInApp: Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let defaults = UserDefaults.standard
         let testDataLoaded = defaults.bool(forKey: "testDataLoaded")
+        defaults.set(false, forKey: "googleSignIn")
         
-        // Gives the location of the project's Realm file.
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        // Initialize Google sign-in
+        GIDSignIn.sharedInstance()?.clientID = "431769686759-6pa2d6l14a6scsoj52n4l37a57e63f09.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.scopes = [kGTLRAuthScopeDrive]
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()                      // Automatically sign in the user.
         
         // Gives us the directory for the userDefaults plist
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true))
-        
-//        do {
-//            let realm = try Realm()
-//            try! realm.write {
-//                realm.deleteAll()
-//            }
-//        } catch {
-//            print("error: \(error)")
-//        }
         
         if testDataLoaded == false {
             let sampleData = SampleData()
@@ -41,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+    
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -63,6 +68,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("Application did enter background!")
     }
+    
+    
+    // Google sign in methods
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            
+            AppDelegate.googleDriveService.authorizer = nil
+            AppDelegate.googleUser = nil
+            return
+        }
+        
+        // Perform any operations on signed in user here.
+        print("Signed Into Google!")
+        
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "googleSignIn")
+        
+        AppDelegate.googleDriveService.authorizer = user.authentication.fetcherAuthorizer()
+        AppDelegate.googleUser = user
+        
+        if AppDelegate.signedIntoGoogleInApp == true {
+            if let rootDelegate = AppDelegate.appRootDelegate {
+                rootDelegate.presentActionSheet()
+            }
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+      // Perform any operations when the user disconnects from app here.
+      // ...
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        let googleDidHandle = GIDSignIn.sharedInstance().handle(url)
 
+        return googleDidHandle
+    }
 }
 
