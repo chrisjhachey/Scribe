@@ -29,32 +29,37 @@ func getAllPassages(w http.ResponseWriter, r *http.Request) {
 }
 
 func getPassages(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	theID := params["textid"]
+	if model.ValidateToken(r) {
+		params := mux.Vars(r)
+		userID := params["userid"]
+		textID := params["textid"]
 
-	thePassages, err := model.GetPassages(theID)
+		thePassages, err := model.GetPassages(userID, textID)
 
-	if err != nil {
-		panic(err.Error())
+		if err != nil {
+			panic(err.Error())
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(string(thePassages)))
 	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(string(thePassages)))
 }
 
 func postPassage(w http.ResponseWriter, r *http.Request) {
-	b, err := ioutil.ReadAll(r.Body)
+	if model.ValidateToken(r) {
+		b, err := ioutil.ReadAll(r.Body)
 
-	if err != nil {
-		panic(err)
+		if err != nil {
+			panic(err)
+		}
+
+		model.CreatePassage(b)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte(`{"message": "post called on Passage"}`))
 	}
-
-	model.CreatePassage(b)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(`{"message": "post called on Passage"}`))
 }
 
 func putPassage(w http.ResponseWriter, r *http.Request) {
@@ -77,8 +82,13 @@ func notFoundPassage(w http.ResponseWriter, r *http.Request) {
 
 // SetPassageHandlerFunctions sets the handler functions for the Router and adds a matcher for the HTTP verb
 func SetPassageHandlerFunctions(router *mux.Router) {
+<<<<<<< HEAD
 	router.HandleFunc("/passage", getAllPassages)
 	router.HandleFunc("/{textid}/passage", getPassages)
+=======
+	router.HandleFunc("/passage", getAllPassages).Methods(http.MethodGet)
+	router.HandleFunc("/{textid}/passage/{userid}", getPassages)
+>>>>>>> UserAuth
 	router.HandleFunc("/passage", postPassage).Methods(http.MethodPost)
 	router.HandleFunc("/passage", putPassage).Methods(http.MethodPut)
 	router.HandleFunc("/passage", deletePassage).Methods(http.MethodDelete)

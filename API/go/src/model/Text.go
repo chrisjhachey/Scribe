@@ -11,18 +11,20 @@ package model
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 )
 
 // Text bject
 type Text struct {
 	ID       int
+	UserID   int
 	Name     string
 	Author   string
 	Passages []Passage
 }
 
 // RetrieveTexts is used to get texts
-func RetrieveTexts() ([]byte, error) {
+func RetrieveTexts(userID string) ([]byte, error) {
 	var texts = []Text{}
 
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
@@ -34,12 +36,12 @@ func RetrieveTexts() ([]byte, error) {
 	}
 
 	// Perform a db.Query select
-	results, err := db.Query("SELECT * FROM Text;")
+	results, err := db.Query("SELECT * FROM Text WHERE user_id = ?;", userID)
 	defer results.Close()
 
 	for results.Next() {
 		var text Text
-		err = results.Scan(&text.ID, &text.Name, &text.Author)
+		err = results.Scan(&text.ID, &text.UserID, &text.Name, &text.Author)
 
 		if err != nil {
 			panic(err.Error())
@@ -51,8 +53,9 @@ func RetrieveTexts() ([]byte, error) {
 	return json.Marshal(texts)
 }
 
-// CreateText is used to  create a new Text
-func CreateText(responseBody []byte) {
+// CreateText is used to create a new Text
+func CreateText(responseBody []byte) ([]byte, error) {
+	var texts = []Text{}
 	var text Text
 	json.Unmarshal(responseBody, &text)
 
@@ -64,7 +67,57 @@ func CreateText(responseBody []byte) {
 		panic(err.Error())
 	}
 
+	stmt, err := db.Prepare("INSERT INTO Text (user_id, name, author) VALUES(?, ?, ?)")
+	defer stmt.Close()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	res, err := stmt.Exec(text.UserID, text.Name, text.Author)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	id, _ := res.LastInsertId()
+
+	fmt.Println(id, "HACHEY!!!!!!!!!!")
+
+	result, err := db.Query("SELECT * FROM Text WHERE id = ?", id)
+	defer result.Close()
+
+	for result.Next() {
+		var newText Text
+
+		err = result.Scan(&newText.ID, &newText.UserID, &newText.Name, &newText.Author)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		texts = append(texts, newText)
+	}
+
+	return json.Marshal(texts)
+}
+
+// DeleteText is used to delete an existing Text and all it's children
+func DeleteText(textID string) error {
+
+	// Opens the MYSQL database using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	defer db.Close()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Println(textID)
+
 	// Perform a db.Query select
-	insert, err := db.Query("INSERT INTO Text (name, author) VALUES(?, ?)", text.Name, text.Author)
-	defer insert.Close()
+	delete, err := db.Query("DELETE FROM Text WHERE ID = ?", textID)
+	defer delete.Close()
+
+	return err
 }

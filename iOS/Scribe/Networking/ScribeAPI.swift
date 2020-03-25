@@ -24,7 +24,49 @@ public struct ScribeAPI {
         
         return Promise { seal in
             firstly {
+<<<<<<< HEAD
                 performRequest(url: url!, verb: httpVerb)
+=======
+                performRequest(url: url!, verb: httpVerb, data: nil)
+            }.done { results in
+                seal.fulfill(self.makeModel(jsonData: results.data))
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    func delete(resourcePath: String) -> Promise<String> {
+        let urlString = baseURL + resourcePath
+        let url = URL(string: urlString)
+        let httpVerb = "DELETE"
+        
+        return Promise { seal in
+            firstly {
+                performRequest(url: url!, verb: httpVerb, data: nil)
+            }.done { results in
+                seal.fulfill("Delete Successfull!")
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+    
+    func post<T: Entity>(resourcePath: String, entity: T) -> Promise<[T]> {
+        
+        let urlString = baseURL + resourcePath
+        let url = URL(string: urlString)
+        let httpVerb = "POST"
+        
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(entity)
+        
+        print("JSON passed to request body: \(String(decoding: data, as: UTF8.self))")
+        
+        return Promise { seal in
+            firstly {
+                performRequest(url: url!, verb: httpVerb, data: data)
+>>>>>>> UserAuth
             }.done { results in
                 seal.fulfill(self.makeModel(jsonData: results.data))
             }.catch { error in
@@ -34,6 +76,7 @@ public struct ScribeAPI {
     }
     
     // Performs a Network Request
+<<<<<<< HEAD
     func performRequest(url: URL, verb: String) -> Promise<NetworkResponse> {
         
         // Define the headers for this request
@@ -42,6 +85,28 @@ public struct ScribeAPI {
         // Create a request from the URL
         var request = URLRequest(url: url)
         request.httpMethod = verb
+=======
+    func performRequest(url: URL, verb: String?, data: Data?) -> Promise<NetworkResponse> {
+        
+        // Define the headers for this request
+        var headerDictionary: [String: String] = [ "Accept": "application/json", "Accept-Encoding": "gzip" ]
+        
+        if let token = Context.shared.token {
+            headerDictionary["Scribe-Token"] =  "\(token.Token)"
+        }
+        
+        // Create a request from the URL
+        var request = URLRequest(url: url)
+        
+        if let verb = verb {
+            request.httpMethod = verb
+        }
+        
+        // If there is a JSON body add it to the Request
+        if let data = data {
+            request.httpBody = data
+        }
+>>>>>>> UserAuth
         
         // Add Headers to the Request
         addRequestHeaders(request: &request, headers: headerDictionary)
@@ -53,10 +118,25 @@ public struct ScribeAPI {
             firstly {
                 URLSession.shared.dataTask(.promise, with: request).validate()
             }.done { results in
+<<<<<<< HEAD
+=======
+                let str = String(decoding: results.data, as: UTF8.self)
+                print(str)
+                
+>>>>>>> UserAuth
                 response.data = results.data
                 response.url = request.url!.absoluteString
                 response.contentType = results.response.mimeType!
                 
+<<<<<<< HEAD
+=======
+                if let urlResponse = results.response as? HTTPURLResponse {
+                    if let userId = urlResponse.allHeaderFields["Userid"] as? String {
+                        Context.shared.userId = Int(userId)
+                    }
+                }
+                
+>>>>>>> UserAuth
                 seal.fulfill(response)
             }.catch { error in
                 seal.reject(error)

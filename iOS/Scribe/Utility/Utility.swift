@@ -8,8 +8,81 @@
 
 import Foundation
 import RealmSwift
+<<<<<<< HEAD
 
 public class Utility {
+=======
+import PromiseKit
+import GoogleSignIn
+import GoogleAPIClientForREST
+import GTMSessionFetcher
+
+public class Utility {
+    
+    public static func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+    
+    public static func getExportString() -> Promise<String> {
+        var exportString = ""
+        var texts = [Text]()
+        var passages = [Passage]()
+        var textsAndPassages = [Int: [Passage]]()
+        
+        guard let userId = Context.shared.userId else {
+            fatalError("No user id found in session!")
+        }
+        
+        return Promise { seal in
+            
+            firstly { () -> Promise<[Text]> in
+                ScribeAPI.shared.get(resourcePath: "text/\(userId)")
+            }.then { results -> Promise<[[Passage]]> in
+                texts = results
+                var textGenerator = texts.makeIterator()
+                let generator = AnyIterator<Promise<[Passage]>> {
+                    guard let text = textGenerator.next() else {
+                        return nil
+                    }
+                    
+                    return ScribeAPI.shared.get(resourcePath: "\(text.ID)/passage/\(text.UserID)")
+                }
+                
+                return when(fulfilled: generator, concurrently: 5)
+            }.done { results in
+                for passageArray in results {
+                    passages.append(contentsOf: passageArray)
+                }
+                
+                for text in texts {
+                    var myPassages = [Passage]()
+                    for passage in passages where passage.TextID == text.ID {
+                        myPassages.append(passage)
+                    }
+                    
+                    textsAndPassages[text.ID] = myPassages
+                }
+                
+                for text in texts {
+                    exportString += "\(text.Name)\n\n\n"
+                    
+                    for passage in textsAndPassages[text.ID]! {
+                        exportString += "\(passage.Content)\n\n"
+                    }
+                    
+                    exportString += "\n"
+                }
+                
+                seal.fulfill(exportString)
+            }.catch { error in
+                seal.reject(error)
+            }
+        }
+    }
+>>>>>>> UserAuth
 
     public func getPassageView(passage: Passage) -> UIStackView {
         
@@ -57,6 +130,111 @@ public class Utility {
     @objc func addNote(sender: UIButton!) {
       print("Button tapped??")
     }
+<<<<<<< HEAD
+=======
+    
+    // Access the Apps documents directory
+    public static func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        print(paths[0].absoluteString)
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    public static func printTimestamp() -> String {
+        let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
+      
+        return timestamp
+    }
+    
+    
+
+    // Google Drive functions
+    
+    // Create a folder
+    public static func createGoogleDriveFolder(name: String, service: GTLRDriveService, completion: @escaping (String) -> Void) {
+        
+        let folder = GTLRDrive_File()
+        folder.mimeType = "application/vnd.google-apps.folder"
+        folder.name = name
+        
+        // Google Drive folders are files with a special MIME-type.
+        let query = GTLRDriveQuery_FilesCreate.query(withObject: folder, uploadParameters: nil)
+        
+        service.executeQuery(query) { (_, file, error) in
+            guard error == nil else {
+                fatalError(error!.localizedDescription)
+            }
+            
+            let folder = file as! GTLRDrive_File
+            completion(folder.identifier!)
+        }
+    }
+    
+    // Get a folder
+    public static func getGoogleDriveFolderID(name: String, service: GTLRDriveService, user: GIDGoogleUser, completion: @escaping (String?) -> Void) {
+        
+        let query = GTLRDriveQuery_FilesList.query()
+
+        // Comma-separated list of areas the search applies to. E.g., appDataFolder, photos, drive.
+        query.spaces = "drive"
+        
+        // Comma-separated list of access levels to search in. Some possible values are "user,allTeamDrives" or "user"
+        query.corpora = "user"
+            
+        let withName = "name = '\(name)'" // Case insensitive!
+        let foldersOnly = "mimeType = 'application/vnd.google-apps.folder'"
+        let ownedByUser = "'\(user.profile!.email!)' in owners"
+        
+        query.q = "\(withName) and \(foldersOnly) and \(ownedByUser)"
+        
+        service.executeQuery(query) { (_, result, error) in
+            guard error == nil else {
+                fatalError(error!.localizedDescription)
+            }
+                                     
+            let folderList = result as! GTLRDrive_FileList
+
+            // For brevity, assumes only one folder is returned.
+            completion(folderList.files?.first?.identifier)
+        }
+    }
+    
+    // Upload a file
+    public static func uploadGoogleDriveFile(name: String, folderID: String, fileURL: URL, mimeType: String, service: GTLRDriveService, controller: UIAlertController, progressBar: UIProgressView) {
+        
+        let file = GTLRDrive_File()
+        file.name = name
+        file.parents = [folderID]
+        
+        // Optionally, GTLRUploadParameters can also be created with a Data object.
+        let uploadParameters = GTLRUploadParameters(fileURL: fileURL, mimeType: mimeType)
+        
+        let query = GTLRDriveQuery_FilesCreate.query(withObject: file, uploadParameters: uploadParameters)
+        
+        service.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
+            
+            let progress = Float(totalBytesUploaded)/Float(totalBytesExpectedToUpload)
+            
+            DispatchQueue.main.async {
+                progressBar.setProgress(progress, animated: true)
+            }
+            
+            controller.message = "\(String(Int(round(100 * (Double(totalBytesUploaded)/Double(totalBytesExpectedToUpload)))))) %"
+        }
+        
+        service.executeQuery(query) { (_, result, error) in
+            guard error == nil else {
+                controller.message = "Something went wrong. Please try again later."
+                fatalError(error!.localizedDescription)
+            }
+            
+            controller.message = "Success!"
+        }
+    }
+>>>>>>> UserAuth
 }
 
 // Used to resize the text image to within a max dimension while retaining aspect ratio

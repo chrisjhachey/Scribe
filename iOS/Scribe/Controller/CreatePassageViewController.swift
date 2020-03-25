@@ -7,14 +7,23 @@
 //
 
 import Foundation
+<<<<<<< HEAD
 import UIKit
 import Eureka
 import RealmSwift
+=======
+import PromiseKit
+import UIKit
+import Eureka
+>>>>>>> UserAuth
 
 public class CreatePassageViewController: FormViewController {
     let text: Text
     let content: String
+<<<<<<< HEAD
     let realm = try! Realm()
+=======
+>>>>>>> UserAuth
     
     public override func viewDidLoad() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.createPassage))
@@ -35,6 +44,7 @@ public class CreatePassageViewController: FormViewController {
             .onCellSelection {  cell, row in
                 let passage = Passage()
                 passage.Content = self.form.rowBy(tag: "noteTextArea")?.baseValue as! String
+<<<<<<< HEAD
                 
 //                do {
 //                    try self.realm.write {
@@ -43,6 +53,22 @@ public class CreatePassageViewController: FormViewController {
 //                } catch {
 //                    print("Error: \(error)")
 //                }
+=======
+                passage.TextID = self.text.ID
+                guard let userId = Context.shared.userId else {
+                    fatalError("No user id found in session!")
+                }
+                
+                passage.UserID = userId
+                
+                firstly {
+                    ScribeAPI.shared.post(resourcePath: "passage", entity: passage)
+                }.done { results in
+                    print(results)
+                }.catch { error in
+                    print(error)
+                }
+>>>>>>> UserAuth
                 
                 self.dismiss(animated: true, completion: nil)
             }

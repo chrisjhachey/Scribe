@@ -17,7 +17,11 @@ public struct PMKConfiguration {
     /// The closure used to log PromiseKit events.
     /// Not thread safe; change before processing any promises.
     /// - Note: The default handler calls `print()`
+<<<<<<< HEAD
     public var logHandler: (LogEvent) -> () = { event in
+=======
+    public var logHandler: (LogEvent) -> Void = { event in
+>>>>>>> UserAuth
         switch event {
         case .waitOnMainThread:
             print("PromiseKit: warning: `wait()` called on main thread!")

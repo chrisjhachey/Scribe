@@ -24,7 +24,11 @@ public class PassageViewController: UIViewController {
     
     func update() {
         firstly { () -> Promise<[Passage]> in
+<<<<<<< HEAD
             ScribeAPI.shared.get(resourcePath: "\(text.ID)/passage")
+=======
+            ScribeAPI.shared.get(resourcePath: "\(text.ID)/passage/\(text.UserID)")
+>>>>>>> UserAuth
         }.done { results in
             self.passages = results
             
