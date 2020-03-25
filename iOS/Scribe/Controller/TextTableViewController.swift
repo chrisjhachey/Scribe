@@ -37,6 +37,7 @@ public class TextTableViewController: UITableViewController {
         let text = texts[indexPath.item]
         let summary = TextSummaryView(name: text.Name, author: text.Author!)
         
+        cell.subviews.forEach({ $0.removeFromSuperview() })
         cell.addSubview(summary)
     
         return cell
@@ -54,7 +55,7 @@ public class TextTableViewController: UITableViewController {
             deleteAlert.addAction(UIAlertAction(title: "Yes, Remove", style: .destructive, handler: { (_) in
                 let textToDelete = self.texts[indexPath.row]
                 
-                // TODO API delete on textToDelete
+                // TODO sometimes the table view doesn't seem to update on a delete even though the DB removes the text and returns the new list...
                 ScribeAPI.shared.delete(resourcePath: "text/\(textToDelete.ID)")
                 
                 self.update()
@@ -70,11 +71,16 @@ public class TextTableViewController: UITableViewController {
     }
     
     public func update() {
+        guard let userId = Context.shared.userId else {
+            fatalError("No user id found in session!")
+        }
         
         firstly { () -> Promise<[Text]> in
-            ScribeAPI.shared.get(resourcePath: "text")
+            ScribeAPI.shared.get(resourcePath: "text/\(userId)")
         }.done { results in
             self.texts = results
+            let vc = self.tabBarController?.viewControllers![0] as! HomeViewController
+            vc.update()
             self.tableView.reloadData()
         }.catch { error in
             print(error)
@@ -101,12 +107,14 @@ public class TextTableViewController: UITableViewController {
             let text = Text()
             text.Name = nameTextField.text!
             text.Author = authorTextField.text!
+            text.UserID = Context.shared.userId!
             
             firstly {
                 ScribeAPI.shared.post(resourcePath: "text", entity: text)
             }.done { results in
-                self.texts.append(contentsOf: results)
-                self.tableView.reloadData()
+//                self.texts.append(contentsOf: results)
+//                self.tableView.reloadData()
+                self.update()
             }.catch { error in
                 print(error)
             }

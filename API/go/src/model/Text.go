@@ -17,13 +17,14 @@ import (
 // Text bject
 type Text struct {
 	ID       int
+	UserID   int
 	Name     string
 	Author   string
 	Passages []Passage
 }
 
 // RetrieveTexts is used to get texts
-func RetrieveTexts() ([]byte, error) {
+func RetrieveTexts(userID string) ([]byte, error) {
 	var texts = []Text{}
 
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
@@ -35,12 +36,12 @@ func RetrieveTexts() ([]byte, error) {
 	}
 
 	// Perform a db.Query select
-	results, err := db.Query("SELECT * FROM Text;")
+	results, err := db.Query("SELECT * FROM Text WHERE user_id = ?;", userID)
 	defer results.Close()
 
 	for results.Next() {
 		var text Text
-		err = results.Scan(&text.ID, &text.Name, &text.Author)
+		err = results.Scan(&text.ID, &text.UserID, &text.Name, &text.Author)
 
 		if err != nil {
 			panic(err.Error())
@@ -66,14 +67,14 @@ func CreateText(responseBody []byte) ([]byte, error) {
 		panic(err.Error())
 	}
 
-	stmt, err := db.Prepare("INSERT INTO Text (name, author) VALUES(?, ?)")
+	stmt, err := db.Prepare("INSERT INTO Text (user_id, name, author) VALUES(?, ?, ?)")
 	defer stmt.Close()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	res, err := stmt.Exec(text.Name, text.Author)
+	res, err := stmt.Exec(text.UserID, text.Name, text.Author)
 
 	if err != nil {
 		panic(err.Error())
@@ -89,7 +90,7 @@ func CreateText(responseBody []byte) ([]byte, error) {
 	for result.Next() {
 		var newText Text
 
-		err = result.Scan(&newText.ID, &newText.Name, &newText.Author)
+		err = result.Scan(&newText.ID, &newText.UserID, &newText.Name, &newText.Author)
 
 		if err != nil {
 			panic(err.Error())

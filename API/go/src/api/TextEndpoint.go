@@ -10,34 +10,42 @@ import (
 )
 
 func getTexts(w http.ResponseWriter, r *http.Request) {
-	theTexts, err := model.RetrieveTexts()
+	if model.ValidateToken(r) {
+		params := mux.Vars(r)
+		theID := params["userid"]
 
-	if err != nil {
-		panic(err.Error())
+		theTexts, err := model.RetrieveTexts(theID)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(string(theTexts)))
+
+		fmt.Println(string(theTexts))
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(`"message": "Unauthorized: token not provided or invalid!"`))
 	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(string(theTexts)))
-
-	fmt.Println(string(theTexts))
 }
 
 func postText(w http.ResponseWriter, r *http.Request) {
-	bytes, err := ioutil.ReadAll(r.Body)
+	if model.ValidateToken(r) {
+		bytes, err := ioutil.ReadAll(r.Body)
 
-	if err != nil {
-		panic(err.Error())
+		if err != nil {
+			panic(err.Error())
+		}
+
+		theText, err := model.CreateText(bytes)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte(string(theText)))
 	}
-
-	theText, err := model.CreateText(bytes)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(string(theText)))
-	//w.Write([]byte(`{"message": "Post Called Successfully"}`))
-
-	//fmt.Println(string(theText))
 }
 
 func putText(w http.ResponseWriter, r *http.Request) {
@@ -67,7 +75,7 @@ func notFoundText(w http.ResponseWriter, r *http.Request) {
 
 // SetTextHandlerFunctions sets the handler functions for the Router and adds a matcher for the HTTP verb
 func SetTextHandlerFunctions(router *mux.Router) {
-	router.HandleFunc("/text", getTexts).Methods(http.MethodGet)
+	router.HandleFunc("/text/{userid}", getTexts).Methods(http.MethodGet)
 	router.HandleFunc("/text", postText).Methods(http.MethodPost)
 	router.HandleFunc("/text", putText).Methods(http.MethodPut)
 	router.HandleFunc("/text/{textid}", deleteText).Methods(http.MethodDelete)

@@ -13,6 +13,8 @@ import RealmSwift
 public class Passage: Entity, Equatable {
     public var ID: Int = 0
     
+    public var UserID: Int = 0
+    public var TextID: Int = 0
     public var Content: String = ""
     //var notes = List<Note>()
     

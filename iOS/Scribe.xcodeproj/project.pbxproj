@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		7BE800F63086D5D22B8281B5 /* Pods_Scribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */; };
 		E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3129FCA24057EFC00B209F6 /* Entity.swift */; };
+		E33CC3B82421A71800A5C1A7 /* PassageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3B72421A71800A5C1A7 /* PassageView.swift */; };
+		E33CC3BA24224E8B00A5C1A7 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */; };
+		E33CC3BC24225BC800A5C1A7 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */; };
+		E33CC3BE24225C8C00A5C1A7 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */; };
 		E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33E89F623CA5DF900059447 /* AddNoteViewController.swift */; };
 		E341EC7023CAC12E00DAF292 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E341EC6F23CAC12E00DAF292 /* Note.swift */; };
 		E343589B23C0CFDA0027FCB2 /* TextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */; };
@@ -16,6 +20,7 @@
 		E34AAE3223C695620088D1C4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34AAE3123C695620088D1C4 /* Utility.swift */; };
 		E34D317423C001E700B9996D /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317323C001E700B9996D /* Passage.swift */; };
 		E34D317623C0037200B9996D /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317523C0037200B9996D /* Text.swift */; };
+		E3540B34241D21AA0002CC7E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3540B33241D21AA0002CC7E /* Token.swift */; };
 		E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E359A3AD23C37BA800DE726B /* SampleData.swift */; };
 		E3655D3D23BD029200E08645 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3655D3C23BD029200E08645 /* AppDelegate.swift */; };
 		E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3655D3E23BD029200E08645 /* SceneDelegate.swift */; };
@@ -24,6 +29,9 @@
 		E3655D4623BD029300E08645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4523BD029300E08645 /* Assets.xcassets */; };
 		E3655D4923BD029300E08645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3655D4723BD029300E08645 /* LaunchScreen.storyboard */; };
 		E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365C74523CF67FC00A56EFD /* PassageViewController.swift */; };
+		E38189542413F13F00E766CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38189532413F13F00E766CF /* User.swift */; };
+		E3989B77241672950087B7F1 /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3989B76241672950087B7F1 /* UserLoginViewController.swift */; };
+		E3989B79241676F90087B7F1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3989B78241676F90087B7F1 /* SignUpViewController.swift */; };
 		E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398FF0623FC638300A79FF0 /* ScribeAPI.swift */; };
 		E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */; };
 		E39B758723CCC07100D11097 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758623CCC07100D11097 /* Document.swift */; };
@@ -39,6 +47,10 @@
 		89E095B704866B6B29E39052 /* Pods-Scribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.debug.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.debug.xcconfig"; sourceTree = "<group>"; };
 		9979B1748C3F33D549DFF184 /* Pods-Scribe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.release.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.release.xcconfig"; sourceTree = "<group>"; };
 		E3129FCA24057EFC00B209F6 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		E33CC3B72421A71800A5C1A7 /* PassageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageView.swift; sourceTree = "<group>"; };
+		E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E33E89F623CA5DF900059447 /* AddNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewController.swift; sourceTree = "<group>"; };
 		E341EC6F23CAC12E00DAF292 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +58,7 @@
 		E34AAE3123C695620088D1C4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		E34D317323C001E700B9996D /* Passage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passage.swift; sourceTree = "<group>"; };
 		E34D317523C0037200B9996D /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		E3540B33241D21AA0002CC7E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		E359A3AD23C37BA800DE726B /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		E3655D3923BD029200E08645 /* Scribe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3655D3C23BD029200E08645 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +69,9 @@
 		E3655D4823BD029300E08645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3655D4A23BD029300E08645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E365C74523CF67FC00A56EFD /* PassageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassageViewController.swift; sourceTree = "<group>"; };
+		E38189532413F13F00E766CF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E3989B76241672950087B7F1 /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
+		E3989B78241676F90087B7F1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E398FF0623FC638300A79FF0 /* ScribeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribeAPI.swift; sourceTree = "<group>"; };
 		E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTableViewController.swift; sourceTree = "<group>"; };
 		E39B758623CCC07100D11097 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -104,6 +120,8 @@
 				E341EC6F23CAC12E00DAF292 /* Note.swift */,
 				E39B758623CCC07100D11097 /* Document.swift */,
 				E3129FCA24057EFC00B209F6 /* Entity.swift */,
+				E38189532413F13F00E766CF /* User.swift */,
+				E3540B33241D21AA0002CC7E /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -114,6 +132,7 @@
 				E3655D4223BD029200E08645 /* Main.storyboard */,
 				E3655D4723BD029300E08645 /* LaunchScreen.storyboard */,
 				E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */,
+				E33CC3B72421A71800A5C1A7 /* PassageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -127,6 +146,11 @@
 				E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */,
 				E3CC642123CE670400D3903B /* CreatePassageViewController.swift */,
 				E365C74523CF67FC00A56EFD /* PassageViewController.swift */,
+				E3989B76241672950087B7F1 /* UserLoginViewController.swift */,
+				E3989B78241676F90087B7F1 /* SignUpViewController.swift */,
+				E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */,
+				E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */,
+				E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -205,6 +229,7 @@
 				E3655D3623BD029200E08645 /* Frameworks */,
 				E3655D3723BD029200E08645 /* Resources */,
 				5FCD8DCDE95E2DEC080D426B /* [CP] Embed Pods Frameworks */,
+				C856572EE2C27AAACD640521 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,8 +319,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
@@ -305,8 +334,12 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
@@ -317,6 +350,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C856572EE2C27AAACD640521 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Scribe/Pods-Scribe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -325,10 +380,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */,
+				E33CC3B82421A71800A5C1A7 /* PassageView.swift in Sources */,
+				E3989B77241672950087B7F1 /* UserLoginViewController.swift in Sources */,
+				E33CC3BE24225C8C00A5C1A7 /* MenuViewController.swift in Sources */,
 				E34D317423C001E700B9996D /* Passage.swift in Sources */,
 				E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */,
 				E34D317623C0037200B9996D /* Text.swift in Sources */,
 				E3655D4123BD029200E08645 /* HomeViewController.swift in Sources */,
+				E33CC3BC24225BC800A5C1A7 /* ContainerViewController.swift in Sources */,
+				E3989B79241676F90087B7F1 /* SignUpViewController.swift in Sources */,
 				E343589B23C0CFDA0027FCB2 /* TextTableViewController.swift in Sources */,
 				E3C4454E23C0124B0063BF04 /* Context.swift in Sources */,
 				E341EC7023CAC12E00DAF292 /* Note.swift in Sources */,
@@ -337,13 +397,16 @@
 				E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */,
 				E34AAE3223C695620088D1C4 /* Utility.swift in Sources */,
 				E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */,
+				E3540B34241D21AA0002CC7E /* Token.swift in Sources */,
 				E33E89F723CA5DF900059447 /* AddNoteViewController.swift in Sources */,
+				E33CC3BA24224E8B00A5C1A7 /* AuthorizationViewController.swift in Sources */,
 				E3655D3F23BD029200E08645 /* SceneDelegate.swift in Sources */,
 				E344A893240564BB00779DE9 /* NetworkResponse.swift in Sources */,
 				E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */,
 				E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */,
 				E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */,
 				E39B758723CCC07100D11097 /* Document.swift in Sources */,
+				E38189542413F13F00E766CF /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

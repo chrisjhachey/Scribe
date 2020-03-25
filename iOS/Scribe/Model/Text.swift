@@ -13,9 +13,9 @@ import Realm
 public class Text: Entity {
     public var ID: Int = 0
     
+    public var UserID: Int = 0
     public var Name: String = ""
     public var Author: String?
-    //public var Passages: [Passage]?
     
 //    /// JSON Serialization Keys
 //    private enum Keys: String, CodingKey {

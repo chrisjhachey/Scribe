@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 import MobileCoreServices
 import RealmSwift
 import TesseractOCR
@@ -27,8 +28,6 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
         
-        //texts = realm.objects(Text.self)
-        
         pickerView.delegate = self
         let color1 = UIColor.brown
         let color2 = Utility.hexStringToUIColor(hex: "#D0C8B0")
@@ -36,7 +35,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         pickerView.setValue(color1, forKey: "textColor")
         pickerView.setValue(color2, forKey: "backgroundColor")
         currentWorkingText.inputView = pickerView
-        currentWorkingText.text = defaults.string(forKey: "workingText")
+        
+        update()
         
         dismissPickerView()
     }
@@ -63,8 +63,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                     })
                 }
                     
-                  imagePickerActionSheet.addAction(cameraButton)
-                }
+                imagePickerActionSheet.addAction(cameraButton)
+            }
 
             // Adds a Choose Existing button to the action sheet
             let libraryButton = UIAlertAction(title: "Choose Existing", style: .default) { alert -> Void in
@@ -81,6 +81,13 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
                 
             imagePickerActionSheet.addAction(libraryButton)
+            
+            let customPassageButton = UIAlertAction(title: "Custom Passage", style: .default) { alert -> Void in
+                
+                self.present(CreatePassageViewController(text: selectedText, content: ""), animated: true, completion: nil)
+            }
+            
+            imagePickerActionSheet.addAction(customPassageButton)
 
             // What to do when UIAlertController is canceled
             let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { alert -> Void in
@@ -163,9 +170,28 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
           view.endEditing(true)
     }
     
-    func textsUpdated() {
-//        texts = realm.objects(Text.self)
-//        pickerView.reloadAllComponents()
+    @IBAction func menuButton(_ sender: Any) {
+        print("Menu pushed!")
+        HamburgerMenu().triggerSideMenu()
+    }
+    public func update() {
+        
+        firstly { () -> Promise<[Text]> in
+            ScribeAPI.shared.get(resourcePath: "text/\(Context.shared.userId!)")
+        }.done { results in
+            self.texts = results
+            
+            if let defaultText = self.defaults.string(forKey: "workingText") {
+                self.currentWorkingText.text = defaultText
+            } else if results.count != 0 {
+                self.currentWorkingText.text = results[0].Name
+                self.selectedText = results[0]
+            }
+            
+            self.pickerView.reloadAllComponents()
+        }.catch { error in
+            print(error)
+        }
     }
 }
 
