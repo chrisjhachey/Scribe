@@ -14,11 +14,7 @@ public struct ScribeAPI {
     public static let shared = ScribeAPI()
     
     // Defines the base URL for the API
-<<<<<<< HEAD
     let baseURL = "http://localhost:5000/api/v1/"
-=======
-    let baseURL = "http://localhost:8080/api/v1/"
->>>>>>> 724cce3bf80266108cc50cbc459647b009d291d9
     
     // Generic retrieve resource function
     func get<T: Entity>(resourcePath: String) -> Promise<[T]> {
