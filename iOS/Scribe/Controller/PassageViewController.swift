@@ -19,6 +19,8 @@ public class PassageViewController: UIViewController, UIGestureRecognizerDelegat
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editText(sender:)))
+        
         textView.showsVerticalScrollIndicator = false
         
         // Add tap gesture recognizer to Text View
@@ -74,5 +76,9 @@ public class PassageViewController: UIViewController, UIGestureRecognizerDelegat
                 }
             }
         }
+    }
+    
+    @objc func editText(sender: UIBarButtonItem) {
+        present(TextEditViewController(text: text, parentVC: self), animated: true, completion: nil)
     }
 }

@@ -10,7 +10,7 @@
         <!--Text Table View Controller-->
         <scene sceneID="MjF-u3-KIp">
             <objects>
-                <tableViewController id="Rw8-zz-pgx" customClass="TextTableViewController" customModule="Scribe" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="textTableVC" storyboardIdentifier="textTableVC" id="Rw8-zz-pgx" customClass="TextTableViewController" customModule="Scribe" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="t5i-Og-Pgh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -570,7 +570,7 @@
         <!--Texts-->
         <scene sceneID="Hij-hi-T6Z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jh8-Sf-5MU" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="textNavigation" storyboardIdentifier="textNavigation" automaticallyAdjustsScrollViewInsets="NO" id="jh8-Sf-5MU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Texts" image="book" catalog="system" id="DgV-xq-hsY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c53-fS-zMt">
