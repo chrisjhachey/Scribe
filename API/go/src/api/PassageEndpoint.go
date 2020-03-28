@@ -9,6 +9,7 @@
 package api
 
 import (
+	"fmt"
 	"io/ioutil"
 	"model"
 	"net/http"
@@ -51,14 +52,34 @@ func postPassage(w http.ResponseWriter, r *http.Request) {
 		b, err := ioutil.ReadAll(r.Body)
 
 		if err != nil {
-			panic(err)
+			panic(err.Error())
 		}
 
-		model.CreatePassage(b)
+		thePassage, err := model.CreatePassage(b)
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		w.Write([]byte(`{"message": "post called on Passage"}`))
+		w.Write([]byte(string(thePassage)))
+		//w.Write([]byte(`{"message": "Post Called Successfully"}`))
+		fmt.Println(string(thePassage))
+	}
+}
+
+func patchPassage(w http.ResponseWriter, r *http.Request) {
+	if model.ValidateToken(r) {
+		b, err := ioutil.ReadAll(r.Body)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		thePassage, err := model.UpdatePassage(b)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte(string(thePassage)))
+		//w.Write([]byte(`{"message": "Patch Called Successfully"}`))
+		fmt.Println(string(thePassage))
 	}
 }
 
@@ -87,5 +108,6 @@ func SetPassageHandlerFunctions(router *mux.Router) {
 	router.HandleFunc("/passage", postPassage).Methods(http.MethodPost)
 	router.HandleFunc("/passage", putPassage).Methods(http.MethodPut)
 	router.HandleFunc("/passage", deletePassage).Methods(http.MethodDelete)
+	router.HandleFunc("/passage", patchPassage).Methods(http.MethodPatch)
 	router.HandleFunc("/passage", notFoundPassage)
 }
