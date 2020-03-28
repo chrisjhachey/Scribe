@@ -20,6 +20,7 @@ type Text struct {
 	UserID   int
 	Name     string
 	Author   string
+	Edition  string
 	Passages []Passage
 }
 
@@ -41,7 +42,7 @@ func RetrieveTexts(userID string) ([]byte, error) {
 
 	for results.Next() {
 		var text Text
-		err = results.Scan(&text.ID, &text.UserID, &text.Name, &text.Author)
+		err = results.Scan(&text.ID, &text.UserID, &text.Name, &text.Author, &text.Edition)
 
 		if err != nil {
 			panic(err.Error())
@@ -67,14 +68,14 @@ func CreateText(responseBody []byte) ([]byte, error) {
 		panic(err.Error())
 	}
 
-	stmt, err := db.Prepare("INSERT INTO Text (user_id, name, author) VALUES(?, ?, ?)")
+	stmt, err := db.Prepare("INSERT INTO Text (user_id, name, author, edition) VALUES(?, ?, ?, ?)")
 	defer stmt.Close()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	res, err := stmt.Exec(text.UserID, text.Name, text.Author)
+	res, err := stmt.Exec(text.UserID, text.Name, text.Author, text.Edition)
 
 	if err != nil {
 		panic(err.Error())
@@ -90,7 +91,7 @@ func CreateText(responseBody []byte) ([]byte, error) {
 	for result.Next() {
 		var newText Text
 
-		err = result.Scan(&newText.ID, &newText.UserID, &newText.Name, &newText.Author)
+		err = result.Scan(&newText.ID, &newText.UserID, &newText.Name, &newText.Author, &newText.Edition)
 
 		if err != nil {
 			panic(err.Error())
@@ -136,14 +137,14 @@ func UpdateText(responseBody []byte) ([]byte, error) {
 		panic(err.Error())
 	}
 
-	update, err := db.Prepare("UPDATE Text SET Name = ?, Author = ? WHERE ID = ?;")
+	update, err := db.Prepare("UPDATE Text SET Name = ?, Author = ?, Edition = ? WHERE ID = ?;")
 	defer update.Close()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	res, err := update.Exec(text.Name, text.Author, text.ID)
+	res, err := update.Exec(text.Name, text.Author, text.Edition, text.ID)
 
 	if err != nil {
 		panic(err.Error())
@@ -157,7 +158,7 @@ func UpdateText(responseBody []byte) ([]byte, error) {
 	for result.Next() {
 		var updatedText Text
 
-		err = result.Scan(&updatedText.ID, &updatedText.UserID, &updatedText.Name, &updatedText.Author)
+		err = result.Scan(&updatedText.ID, &updatedText.UserID, &updatedText.Name, &updatedText.Author, &updatedText.Edition)
 
 		if err != nil {
 			panic(err.Error())

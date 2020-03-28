@@ -36,7 +36,7 @@ public class PassageViewController: UIViewController, UIGestureRecognizerDelegat
             ScribeAPI.shared.get(resourcePath: "\(text.ID)/passage/\(text.UserID)")
         }.done { results in
             self.passages = results
-            self.textView.attributedText = Utility.getPassageView(textName: self.text.Name, passages: self.passages)
+            self.textView.attributedText = Utility.getPassageView(text: self.text, passages: self.passages)
         }.catch { error in
             print(error)
         }

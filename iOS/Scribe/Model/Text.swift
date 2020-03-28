@@ -16,6 +16,7 @@ public class Text: Entity {
     public var UserID: Int = 0
     public var Name: String = ""
     public var Author: String?
+    public var Edition: String?
     
 //    /// JSON Serialization Keys
 //    private enum Keys: String, CodingKey {

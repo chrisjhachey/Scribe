@@ -90,6 +90,7 @@ public class TextTableViewController: UITableViewController {
     @objc public func addText(sender: UIBarButtonItem) {
         var nameTextField = UITextField()
         var authorTextField = UITextField()
+        var editionTextField = UITextField()
         
         let alert = UIAlertController(title: "Add New Text", message: "", preferredStyle: .alert)
         
@@ -103,17 +104,25 @@ public class TextTableViewController: UITableViewController {
             authorTextField = alertTextField
         }
         
+        alert.addTextField { alertTextField in
+            alertTextField.placeholder = "Edition"
+            editionTextField = alertTextField
+        }
+        
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             let text = Text()
             text.Name = nameTextField.text!
             text.Author = authorTextField.text!
+            
+            if let edition = editionTextField.text {
+                text.Edition = edition
+            }
+            
             text.UserID = Context.shared.userId!
             
             firstly {
                 ScribeAPI.shared.post(resourcePath: "text", entity: text)
             }.done { results in
-//                self.texts.append(contentsOf: results)
-//                self.tableView.reloadData()
                 self.update()
             }.catch { error in
                 print(error)

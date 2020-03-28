@@ -35,6 +35,12 @@ public class TextEditViewController: FormViewController {
                 row.tag = "author"
                 row.baseValue = text.Author
             }
+            
+        +++ Section("Edition")
+        <<< TextRow() { row in
+                row.tag = "edition"
+                row.baseValue = text.Edition
+            }
         
         +++ Section()
         <<< ButtonRow() { row in
@@ -45,6 +51,9 @@ public class TextEditViewController: FormViewController {
         .onCellSelection {  cell, row in
             self.text.Name = self.form.rowBy(tag: "name")?.baseValue as! String
             self.text.Author = (self.form.rowBy(tag: "author")?.baseValue as! String)
+            if self.form.rowBy(tag: "name")?.baseValue != nil {
+                self.text.Edition = (self.form.rowBy(tag: "edition")?.baseValue as! String)
+            }
             
             firstly {
                 ScribeAPI.shared.patch(resourcePath: "text", entity: self.text)

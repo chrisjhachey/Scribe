@@ -79,7 +79,7 @@ public class Utility {
         }
     }
 
-    public static func getPassageView(textName: String, passages: [Passage]) -> NSMutableAttributedString {
+    public static func getPassageView(text: Text, passages: [Passage]) -> NSMutableAttributedString {
         let formattedPassages = NSMutableAttributedString()
         
         let paragraph = NSMutableParagraphStyle()
@@ -87,8 +87,13 @@ public class Utility {
         let boldFontAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), .paragraphStyle: paragraph]
         let normalFontAttributes = [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 12)!]
         
-        let textTitle = NSMutableAttributedString(string: "\(textName)\n\n\n", attributes: boldFontAttributes)
+        let textTitle = NSMutableAttributedString(string: "\(text.Name)\n", attributes: boldFontAttributes)
         formattedPassages.append(textTitle)
+        
+        if let edition = text.Edition {
+            let textEdition = NSMutableAttributedString(string: "\(edition)\n\n\n", attributes: [NSAttributedString.Key.font: UIFont(name: "Cochin-Italic", size: 16) as Any, .paragraphStyle: paragraph])
+            formattedPassages.append(textEdition)
+        }
         
         for passage in passages {
             let passageString = NSMutableAttributedString(string: "\"\(passage.Content)\"\n\n", attributes: normalFontAttributes)
