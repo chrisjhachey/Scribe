@@ -84,7 +84,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             
             let customPassageButton = UIAlertAction(title: "Custom Passage", style: .default) { alert -> Void in
                 
-                self.present(CreatePassageViewController(text: selectedText, content: ""), animated: true, completion: nil)
+                self.present(CreatePassageViewController(text: selectedText, content: "", passage: nil, parentVC: nil), animated: true, completion: nil)
             }
             
             imagePickerActionSheet.addAction(customPassageButton)
@@ -126,7 +126,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 
             activityIndicator.stopAnimating()
             print("OCR Complete!!!!!")
-            self.present(CreatePassageViewController(text: selectedText!, content: ocrText), animated: true, completion: nil)
+        self.present(CreatePassageViewController(text: selectedText!, content: ocrText, passage: nil, parentVC: nil), animated: true, completion: nil)
     }
     
     // Fires when cropping is complete

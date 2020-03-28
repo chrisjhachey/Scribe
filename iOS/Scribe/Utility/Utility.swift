@@ -79,25 +79,32 @@ public class Utility {
         }
     }
 
-    public func getPassageView(passage: Passage) -> UIStackView {
+    public static func getPassageView(textName: String, passages: [Passage]) -> NSMutableAttributedString {
+        let formattedPassages = NSMutableAttributedString()
         
-        let textView = UITextView()
-        let attributedPassage = NSMutableAttributedString(string: "\"\(passage.Content)\"", attributes: [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 12)!])
-        textView.attributedText = attributedPassage
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        let boldFontAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17), .paragraphStyle: paragraph]
+        let normalFontAttributes = [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 12)!]
         
-        let button = UIButton(type: .system)
-        button.setTitle("+", for: .normal)
-        button.addTarget(self, action: #selector(addNote), for: .touchUpInside)
-        button.accessibilityIdentifier = String(passage.ID)
+        let textTitle = NSMutableAttributedString(string: "\(textName)\n\n\n", attributes: boldFontAttributes)
+        formattedPassages.append(textTitle)
         
-        var stack = [UIView]()
-        stack.append(textView)
-        stack.append(button)
-        
-        let stackView = UIStackView(arrangedSubviews: stack)
-        stackView.axis = NSLayoutConstraint.Axis.horizontal
+        for passage in passages {
+            let passageString = NSMutableAttributedString(string: "\"\(passage.Content)\"\n\n", attributes: normalFontAttributes)
+            let passageRange = NSRange(location: 0, length: passageString.length)
+            passageString.addAttribute(NSAttributedString.Key.passageIdentifier, value: passage.ID, range: passageRange)
 
-        return stackView
+            formattedPassages.append(passageString)
+        }
+        
+        
+        
+        return formattedPassages
+    }
+    
+    func doThing() {
+        print("Thing done")
     }
     
     static func hexStringToUIColor(hex: String) -> UIColor {
@@ -248,4 +255,9 @@ extension UIImage {
     
         return scaledImage
     }
+}
+
+// Custom attribute for NSAttributedString used to listen for button clicks on passages
+extension NSAttributedString.Key {
+    static let passageIdentifier = NSAttributedString.Key(rawValue: "MyCustomAttribute")
 }

@@ -50,7 +50,6 @@ public struct ScribeAPI {
     }
     
     func post<T: Entity>(resourcePath: String, entity: T) -> Promise<[T]> {
-        
         let urlString = baseURL + resourcePath
         let url = URL(string: urlString)
         let httpVerb = "POST"
@@ -67,6 +66,28 @@ public struct ScribeAPI {
                 seal.fulfill(self.makeModel(jsonData: results.data))
             }.catch { error in
                 seal.reject(error)
+            }
+        }
+    }
+    
+    func patch<T: Entity>(resourcePath: String, entity: T) -> Promise<[T]> {
+        let urlString = baseURL + resourcePath
+        let url = URL(string: urlString)
+        let httpVerb = "PATCH"
+        
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(entity)
+        
+        print("JSON passed to request body: \(String(decoding: data, as: UTF8.self))")
+        
+        return Promise { seal in
+            firstly {
+                performRequest(url: url!, verb: httpVerb, data: data)
+            }.done { results in
+                seal.fulfill(self.makeModel(jsonData: results.data))
+            }.catch { error in
+                seal.reject(error)
+                print(error)
             }
         }
     }
