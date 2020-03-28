@@ -48,6 +48,24 @@ func postText(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func patchText(w http.ResponseWriter, r *http.Request) {
+	if model.ValidateToken(r) {
+		b, err := ioutil.ReadAll(r.Body)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		thePassage, err := model.UpdateText(b)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		w.Write([]byte(string(thePassage)))
+		//w.Write([]byte(`{"message": "Patch Called Successfully"}`))
+		fmt.Println(string(thePassage))
+	}
+}
+
 func putText(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusAccepted)
@@ -78,6 +96,7 @@ func SetTextHandlerFunctions(router *mux.Router) {
 	router.HandleFunc("/text/{userid}", getTexts).Methods(http.MethodGet)
 	router.HandleFunc("/text", postText).Methods(http.MethodPost)
 	router.HandleFunc("/text", putText).Methods(http.MethodPut)
+	router.HandleFunc("/text", patchText).Methods(http.MethodPatch)
 	router.HandleFunc("/text/{textid}", deleteText).Methods(http.MethodDelete)
 	router.HandleFunc("/text", notFoundText)
 }

@@ -121,3 +121,50 @@ func DeleteText(textID string) error {
 
 	return err
 }
+
+// UpdateText is used to update a Text
+func UpdateText(responseBody []byte) ([]byte, error) {
+	var texts = []Text{}
+	var text Text
+	json.Unmarshal(responseBody, &text)
+
+	// Opens the MYSQL database using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	defer db.Close()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	update, err := db.Prepare("UPDATE Text SET Name = ?, Author = ? WHERE ID = ?;")
+	defer update.Close()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	res, err := update.Exec(text.Name, text.Author, text.ID)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	id, _ := res.LastInsertId()
+
+	result, err := db.Query("SELECT * FROM Text WHERE id = ?", id)
+	defer result.Close()
+
+	for result.Next() {
+		var updatedText Text
+
+		err = result.Scan(&updatedText.ID, &updatedText.UserID, &updatedText.Name, &updatedText.Author)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		texts = append(texts, updatedText)
+	}
+
+	return json.Marshal(texts)
+}

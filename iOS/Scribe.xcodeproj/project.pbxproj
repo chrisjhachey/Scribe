@@ -19,6 +19,7 @@
 		E34AAE3223C695620088D1C4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34AAE3123C695620088D1C4 /* Utility.swift */; };
 		E34D317423C001E700B9996D /* Passage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317323C001E700B9996D /* Passage.swift */; };
 		E34D317623C0037200B9996D /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34D317523C0037200B9996D /* Text.swift */; };
+		E353950A242FC935005FC8BC /* TextEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3539509242FC935005FC8BC /* TextEditViewController.swift */; };
 		E3540B34241D21AA0002CC7E /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3540B33241D21AA0002CC7E /* Token.swift */; };
 		E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E359A3AD23C37BA800DE726B /* SampleData.swift */; };
 		E3655D3D23BD029200E08645 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3655D3C23BD029200E08645 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		E34AAE3123C695620088D1C4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		E34D317323C001E700B9996D /* Passage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passage.swift; sourceTree = "<group>"; };
 		E34D317523C0037200B9996D /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		E3539509242FC935005FC8BC /* TextEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditViewController.swift; sourceTree = "<group>"; };
 		E3540B33241D21AA0002CC7E /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		E359A3AD23C37BA800DE726B /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		E3655D3923BD029200E08645 /* Scribe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 				E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */,
 				E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */,
 				E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */,
+				E3539509242FC935005FC8BC /* TextEditViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				E3C4454E23C0124B0063BF04 /* Context.swift in Sources */,
 				E341EC7023CAC12E00DAF292 /* Note.swift in Sources */,
 				E3655D3D23BD029200E08645 /* AppDelegate.swift in Sources */,
+				E353950A242FC935005FC8BC /* TextEditViewController.swift in Sources */,
 				E3CC642223CE670400D3903B /* CreatePassageViewController.swift in Sources */,
 				E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */,
 				E34AAE3223C695620088D1C4 /* Utility.swift in Sources */,
