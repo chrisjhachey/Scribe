@@ -123,13 +123,23 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZo-PG-g2G">
+                                <rect key="frame" x="116" y="642" width="182" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2RR-BM-wdV" firstAttribute="bottom" secondItem="vZo-PG-g2G" secondAttribute="bottom" constant="101" id="0ln-hT-xnf"/>
                             <constraint firstItem="Jgw-bN-Lk7" firstAttribute="centerX" secondItem="KUM-qV-rhF" secondAttribute="centerX" id="4Jn-0J-jx1"/>
                             <constraint firstItem="wVj-Fq-eRQ" firstAttribute="top" secondItem="Jgw-bN-Lk7" secondAttribute="bottom" constant="85" id="9ta-Nu-itE"/>
+                            <constraint firstItem="vZo-PG-g2G" firstAttribute="top" secondItem="nsO-n7-VeG" secondAttribute="bottom" constant="8" id="HzX-E9-pR2"/>
                             <constraint firstItem="wVj-Fq-eRQ" firstAttribute="centerX" secondItem="KUM-qV-rhF" secondAttribute="centerX" id="MMV-BP-4Ae"/>
+                            <constraint firstItem="2RR-BM-wdV" firstAttribute="trailing" secondItem="vZo-PG-g2G" secondAttribute="trailing" constant="116" id="QWS-5P-AcL"/>
                             <constraint firstItem="2RR-BM-wdV" firstAttribute="bottom" secondItem="nsO-n7-VeG" secondAttribute="bottom" constant="130" id="edD-RJ-IH2"/>
+                            <constraint firstItem="vZo-PG-g2G" firstAttribute="leading" secondItem="2RR-BM-wdV" secondAttribute="leading" constant="116" id="gqY-Nr-NAe"/>
                             <constraint firstItem="Jgw-bN-Lk7" firstAttribute="top" secondItem="2RR-BM-wdV" secondAttribute="top" constant="273" id="vxX-cY-hwX"/>
                             <constraint firstItem="nsO-n7-VeG" firstAttribute="centerX" secondItem="KUM-qV-rhF" secondAttribute="centerX" id="y8G-Tk-rlu"/>
                         </constraints>
@@ -141,6 +151,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="wVj-Fq-eRQ" id="sNL-nf-1tU"/>
                         <outlet property="currentWorkingText" destination="nsO-n7-VeG" id="hdW-Mq-7uQ"/>
+                        <outlet property="errorMessageLabel" destination="vZo-PG-g2G" id="f8A-jr-OIn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWR-wj-S1U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -645,6 +656,6 @@
         <image name="rays" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="U0T-jr-HYD"/>
+        <segue reference="OLc-EI-avi"/>
     </inferredMetricsTieBreakers>
 </document>
