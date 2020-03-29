@@ -16,6 +16,7 @@ public class Passage: Entity, Equatable {
     public var UserID: Int = 0
     public var TextID: Int = 0
     public var Content: String = ""
+    public var PageNumber: String?
     //var notes = List<Note>()
     
     

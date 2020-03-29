@@ -98,6 +98,11 @@ public class Utility {
         for passage in passages {
             let passageString = NSMutableAttributedString(string: "\"\(passage.Content)\"  ", attributes: normalFontAttributes)
             
+            if passage.PageNumber != "" {
+                let pageNumberString = NSMutableAttributedString(string: " (p\(passage.PageNumber!))   ", attributes: [NSAttributedString.Key.font: UIFont(name: "TimesNewRomanPSMT", size: 9)!])
+                passageString.append(pageNumberString)
+            }
+            
             let editImage = NSTextAttachment()
             editImage.image = UIImage(named: "icons8-edit-16")
             let editImageString = NSAttributedString(attachment: editImage)
