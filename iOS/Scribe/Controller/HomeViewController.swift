@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var currentWorkingText: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var errorMessageLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,8 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             present(imagePickerActionSheet, animated: true)
                 
             defaults.set(selectedText.Name, forKey: "workingText")       // Set user default for current working text
+        } else {
+            self.errorMessageLabel.text = "Select or create a text first"
         }
     }
             
@@ -124,8 +127,9 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 }
             }
                 
-            activityIndicator.stopAnimating()
-            print("OCR Complete!!!!!")
+        activityIndicator.stopAnimating()
+        print("OCR Complete!!!!!")
+        
         self.present(CreatePassageViewController(text: selectedText!, content: ocrText, passage: nil, parentVC: nil), animated: true, completion: nil)
     }
     
@@ -182,10 +186,17 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             self.texts = results
             
             if let defaultText = self.defaults.string(forKey: "workingText") {
-                self.currentWorkingText.text = defaultText
+                
+                for text in results where text.Name == defaultText {
+                    self.selectedText = text
+                    self.currentWorkingText.text = defaultText
+                    self.errorMessageLabel.text = nil
+                }
+                
             } else if results.count != 0 {
                 self.currentWorkingText.text = results[0].Name
                 self.selectedText = results[0]
+                self.errorMessageLabel.text = nil
             }
             
             self.pickerView.reloadAllComponents()
