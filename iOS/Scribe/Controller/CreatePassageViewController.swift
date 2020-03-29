@@ -21,12 +21,24 @@ public class CreatePassageViewController: FormViewController {
         let trimmedContent = content.trimmingCharacters(in: .whitespacesAndNewlines)
         
         form +++ Section("Passage")
-            <<< TextAreaRow(){
+            <<< TextAreaRow() {
                 $0.tag = "noteTextArea"
                 $0.baseValue = trimmedContent
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 300)
             }
+            
+            +++ Section("Page")
+            <<< TextRow() {
+                $0.tag = "page"
+                
+                if let passage = passage {
+                    $0.baseValue = passage.PageNumber
+                }
+                
+                $0.placeholder = "Page #"
+            }
         
+            +++ Section()
             <<< ButtonRow() {
                 $0.title = "Commit"
             }
@@ -34,6 +46,10 @@ public class CreatePassageViewController: FormViewController {
             .onCellSelection {  cell, row in
                 if let passage = self.passage {
                     passage.Content = self.form.rowBy(tag: "noteTextArea")?.baseValue as! String
+                    
+                    if self.form.rowBy(tag: "page")?.baseValue != nil {
+                        passage.PageNumber = (self.form.rowBy(tag: "page")?.baseValue as! String)
+                    }
                     
                     firstly {
                         ScribeAPI.shared.patch(resourcePath: "passage", entity: passage)

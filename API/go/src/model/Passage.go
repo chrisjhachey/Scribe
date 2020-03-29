@@ -15,10 +15,11 @@ import (
 
 // Passage bject
 type Passage struct {
-	ID      int
-	UserID  int
-	TextID  int
-	Content string
+	ID         int
+	UserID     int
+	TextID     int
+	Content    string
+	PageNumber string
 }
 
 // GetPassages is used to get all passages for a specific text from DB
@@ -39,7 +40,7 @@ func GetPassages(userID string, textID string) ([]byte, error) {
 
 	for results.Next() {
 		var passage Passage
-		err = results.Scan(&passage.ID, &passage.UserID, &passage.TextID, &passage.Content)
+		err = results.Scan(&passage.ID, &passage.UserID, &passage.TextID, &passage.Content, &passage.PageNumber)
 
 		if err != nil {
 			panic(err.Error())
@@ -69,7 +70,7 @@ func GetAllPassages() ([]byte, error) {
 
 	for results.Next() {
 		var passage Passage
-		err = results.Scan(&passage.ID, &passage.Content, &passage.TextID)
+		err = results.Scan(&passage.ID, &passage.UserID, &passage.TextID, &passage.Content, &passage.PageNumber)
 
 		if err != nil {
 			panic(err.Error())
@@ -96,14 +97,14 @@ func CreatePassage(responseBody []byte) ([]byte, error) {
 	}
 
 	// Perform a db.Query select
-	insert, err := db.Prepare("INSERT INTO Passage (user_id, text_id, content) VALUES(?, ?, ?)")
+	insert, err := db.Prepare("INSERT INTO Passage (user_id, text_id, content, page_number) VALUES(?, ?, ?, ?)")
 	defer insert.Close()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	res, err := insert.Exec(passage.UserID, passage.TextID, passage.Content)
+	res, err := insert.Exec(passage.UserID, passage.TextID, passage.Content, passage.PageNumber)
 
 	if err != nil {
 		panic(err.Error())
@@ -117,7 +118,7 @@ func CreatePassage(responseBody []byte) ([]byte, error) {
 	for result.Next() {
 		var newPassage Passage
 
-		err = result.Scan(&newPassage.ID, &newPassage.UserID, &newPassage.TextID, &newPassage.Content)
+		err = result.Scan(&newPassage.ID, &newPassage.UserID, &newPassage.TextID, &newPassage.Content, &newPassage.PageNumber)
 
 		if err != nil {
 			panic(err.Error())
@@ -143,14 +144,14 @@ func UpdatePassage(responseBody []byte) ([]byte, error) {
 		panic(err.Error())
 	}
 
-	update, err := db.Prepare("UPDATE Passage SET Content = ? WHERE ID = ?;")
+	update, err := db.Prepare("UPDATE Passage SET Content = ?, page_number = ? WHERE ID = ?;")
 	defer update.Close()
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	res, err := update.Exec(passage.Content, passage.ID)
+	res, err := update.Exec(passage.Content, passage.PageNumber, passage.ID)
 
 	if err != nil {
 		panic(err.Error())
@@ -164,7 +165,7 @@ func UpdatePassage(responseBody []byte) ([]byte, error) {
 	for result.Next() {
 		var updatedPassage Passage
 
-		err = result.Scan(&updatedPassage.ID, &updatedPassage.UserID, &updatedPassage.TextID, &updatedPassage.Content)
+		err = result.Scan(&updatedPassage.ID, &updatedPassage.UserID, &updatedPassage.TextID, &updatedPassage.Content, &updatedPassage.PageNumber)
 
 		if err != nil {
 			panic(err.Error())
