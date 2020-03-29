@@ -20,6 +20,7 @@ func main() {
 	api.SetTextHandlerFunctions(sr)
 	api.SetPassageHandlerFunctions(sr)
 	api.SetUserHandlerFunctions(sr)
+	api.SetUsageHandlerFunctions(sr)
 	api.SetTokenHandlerFunctions(sr)
 	api.SetRefreshHandlerFunctions(sr)
 

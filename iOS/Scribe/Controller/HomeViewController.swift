@@ -84,8 +84,19 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             imagePickerActionSheet.addAction(libraryButton)
             
             let customPassageButton = UIAlertAction(title: "Custom Passage", style: .default) { alert -> Void in
+                let usage = UsageMeasurementEntry()
+                usage.UserID = Context.shared.userId!
+                usage.Action = UsageMeasurementEntry.UsageMeasurementAction.Scribe.rawValue
+                usage.DateStamp = Utility.printTimestamp()
                 
-                self.present(CreatePassageViewController(text: selectedText, content: "", passage: nil, parentVC: nil), animated: true, completion: nil)
+                firstly {
+                    ScribeAPI.shared.post(resourcePath: "usage", entity: usage)
+                }.done { results in
+                    print(results)
+                    self.present(CreatePassageViewController(text: self.selectedText!, content: "", passage: nil, parentVC: nil), animated: true, completion: nil)
+                }.catch { error in
+                    print(error)
+                }
             }
             
             imagePickerActionSheet.addAction(customPassageButton)
@@ -130,7 +141,19 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         activityIndicator.stopAnimating()
         print("OCR Complete!!!!!")
         
-        self.present(CreatePassageViewController(text: selectedText!, content: ocrText, passage: nil, parentVC: nil), animated: true, completion: nil)
+        let usage = UsageMeasurementEntry()
+        usage.UserID = Context.shared.userId!
+        usage.Action = UsageMeasurementEntry.UsageMeasurementAction.Scribe.rawValue
+        usage.DateStamp = Utility.printTimestamp()
+        
+        firstly {
+            ScribeAPI.shared.post(resourcePath: "usage", entity: usage)
+        }.done { results in
+            print(results)
+            self.present(CreatePassageViewController(text: self.selectedText!, content: self.ocrText, passage: nil, parentVC: nil), animated: true, completion: nil)
+        }.catch { error in
+            print(error)
+        }
     }
     
     // Fires when cropping is complete
