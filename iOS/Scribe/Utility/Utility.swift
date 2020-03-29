@@ -96,9 +96,19 @@ public class Utility {
         }
         
         for passage in passages {
-            let passageString = NSMutableAttributedString(string: "\"\(passage.Content)\"\n\n", attributes: normalFontAttributes)
-            let passageRange = NSRange(location: 0, length: passageString.length)
-            passageString.addAttribute(NSAttributedString.Key.passageIdentifier, value: passage.ID, range: passageRange)
+            let passageString = NSMutableAttributedString(string: "\"\(passage.Content)\"  ", attributes: normalFontAttributes)
+            
+            let editImage = NSTextAttachment()
+            editImage.image = UIImage(named: "icons8-edit-16")
+            let editImageString = NSAttributedString(attachment: editImage)
+            passageString.append(editImageString)
+            passageString.append(NSAttributedString(string: "\n\n"))
+
+            if let imageRange = passageString.string.range(of: editImageString.string) {
+                let index = passageString.string.index(before: imageRange.upperBound)
+                let upperRange = NSRange(index..., in: passageString.string)
+                passageString.addAttribute(NSAttributedString.Key.passageIdentifier, value: passage.ID, range: upperRange)
+            }
 
             formattedPassages.append(passageString)
         }
