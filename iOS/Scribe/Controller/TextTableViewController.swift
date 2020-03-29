@@ -96,11 +96,13 @@ public class TextTableViewController: UITableViewController {
         
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Name"
+            alertTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
             nameTextField = alertTextField
         }
         
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Author"
+            alertTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
             authorTextField = alertTextField
         }
         
@@ -111,6 +113,7 @@ public class TextTableViewController: UITableViewController {
         
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             let text = Text()
+            
             text.Name = nameTextField.text!
             text.Author = authorTextField.text!
             
@@ -134,8 +137,20 @@ public class TextTableViewController: UITableViewController {
         }
         
         alert.addAction(addAction)
+        (alert.actions[0] as UIAlertAction).isEnabled = false
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func textChanged(_ sender: Any) {
+        let tf = sender as! UITextField
+        var resp : UIResponder! = tf
+        while !(resp is UIAlertController) { resp = resp.next }
+        let alert = resp as! UIAlertController
+        
+        if alert.textFields![0].text != "" && alert.textFields![1].text != "" {
+            alert.actions[0].isEnabled = true
+        }
     }
     
     override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
