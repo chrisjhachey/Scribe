@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7BE800F63086D5D22B8281B5 /* Pods_Scribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3923B6036CC55916E9F8D32A /* Pods_Scribe.framework */; };
 		E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3129FCA24057EFC00B209F6 /* Entity.swift */; };
+		E320A6382430F13B009E6F9D /* UsageMeasurementEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E320A6372430F13B009E6F9D /* UsageMeasurementEntry.swift */; };
 		E33CC3BA24224E8B00A5C1A7 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */; };
 		E33CC3BC24225BC800A5C1A7 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */; };
 		E33CC3BE24225C8C00A5C1A7 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */; };
@@ -47,6 +48,7 @@
 		89E095B704866B6B29E39052 /* Pods-Scribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.debug.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.debug.xcconfig"; sourceTree = "<group>"; };
 		9979B1748C3F33D549DFF184 /* Pods-Scribe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scribe.release.xcconfig"; path = "Target Support Files/Pods-Scribe/Pods-Scribe.release.xcconfig"; sourceTree = "<group>"; };
 		E3129FCA24057EFC00B209F6 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		E320A6372430F13B009E6F9D /* UsageMeasurementEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageMeasurementEntry.swift; sourceTree = "<group>"; };
 		E33CC3B924224E8B00A5C1A7 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		E33CC3BB24225BC800A5C1A7 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		E33CC3BD24225C8C00A5C1A7 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				E3129FCA24057EFC00B209F6 /* Entity.swift */,
 				E38189532413F13F00E766CF /* User.swift */,
 				E3540B33241D21AA0002CC7E /* Token.swift */,
+				E320A6372430F13B009E6F9D /* UsageMeasurementEntry.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			files = (
 				E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */,
 				E3989B77241672950087B7F1 /* UserLoginViewController.swift in Sources */,
+				E320A6382430F13B009E6F9D /* UsageMeasurementEntry.swift in Sources */,
 				E33CC3BE24225C8C00A5C1A7 /* MenuViewController.swift in Sources */,
 				E34D317423C001E700B9996D /* Passage.swift in Sources */,
 				E365C74623CF67FC00A56EFD /* PassageViewController.swift in Sources */,

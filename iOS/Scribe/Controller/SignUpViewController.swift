@@ -39,9 +39,16 @@ public class SignUpViewController: UIViewController {
                     ScribeAPI.shared.post(resourcePath: "user", entity: newUser)
                 }.then { results -> Promise<[Token]> in
                     ScribeAPI.shared.get(resourcePath: "token?username=\(results[0].Username)&password=\(results[0].Password)")
-                }.done { results in
+                }.then { results -> Promise<[UsageMeasurementEntry]> in
                     self.authenticated = true
                     Context.shared.token = results[0]
+                    
+                    let usageEntry = UsageMeasurementEntry()
+                    usageEntry.UserID = Context.shared.userId!
+                    usageEntry.Action = UsageMeasurementEntry.UsageMeasurementAction.Login.rawValue
+                    
+                    return ScribeAPI.shared.post(resourcePath: "usage", entity: usageEntry)
+                }.done { results in
                     
                     // Requests a refresh token from server every 4.5 minutes
                     Timer.scheduledTimer(withTimeInterval: 271, repeats: true) { timer in
