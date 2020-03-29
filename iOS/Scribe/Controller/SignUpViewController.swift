@@ -62,7 +62,10 @@ public class SignUpViewController: UIViewController {
                         }
                     }
                     
-                    self.performSegue(withIdentifier: "signUpSuccessfull", sender: self)
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let appController = storyBoard.instantiateViewController(withIdentifier: "AppRoot")
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = appController
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.makeKeyAndVisible()
                 }.catch { error in
                     print(error)
                     self.loginErrorMessage.text = "An Error Occured During Sign Up"
