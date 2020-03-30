@@ -14,7 +14,7 @@ class TextSummaryView: UITableViewCell {
     init(name: String, author: String) {
         super.init(style: UITableViewCell.CellStyle.default, reuseIdentifier: "TextCell")
         
-        let image = UIImage(named: "icons8-open-book-96")
+        let image = UIImage(named: "script")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true

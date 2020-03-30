@@ -34,8 +34,6 @@
 		E3989B77241672950087B7F1 /* UserLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3989B76241672950087B7F1 /* UserLoginViewController.swift */; };
 		E3989B79241676F90087B7F1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3989B78241676F90087B7F1 /* SignUpViewController.swift */; };
 		E398FF0723FC638300A79FF0 /* ScribeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398FF0623FC638300A79FF0 /* ScribeAPI.swift */; };
-		E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */; };
-		E39B758723CCC07100D11097 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B758623CCC07100D11097 /* Document.swift */; };
 		E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */; };
 		E3BCB78423D0C347002B125D /* RealmUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BCB78323D0C347002B125D /* RealmUtility.swift */; };
 		E3C4454E23C0124B0063BF04 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4454D23C0124B0063BF04 /* Context.swift */; };
@@ -75,8 +73,6 @@
 		E3989B76241672950087B7F1 /* UserLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewController.swift; sourceTree = "<group>"; };
 		E3989B78241676F90087B7F1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E398FF0623FC638300A79FF0 /* ScribeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribeAPI.swift; sourceTree = "<group>"; };
-		E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTableViewController.swift; sourceTree = "<group>"; };
-		E39B758623CCC07100D11097 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		E3B23C4723C77C8E0061D8BF /* TextSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSummaryView.swift; sourceTree = "<group>"; };
 		E3BCB78323D0C347002B125D /* RealmUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtility.swift; sourceTree = "<group>"; };
 		E3C4454D23C0124B0063BF04 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
@@ -120,7 +116,6 @@
 				E34D317323C001E700B9996D /* Passage.swift */,
 				E34D317523C0037200B9996D /* Text.swift */,
 				E341EC6F23CAC12E00DAF292 /* Note.swift */,
-				E39B758623CCC07100D11097 /* Document.swift */,
 				E3129FCA24057EFC00B209F6 /* Entity.swift */,
 				E38189532413F13F00E766CF /* User.swift */,
 				E3540B33241D21AA0002CC7E /* Token.swift */,
@@ -145,7 +140,6 @@
 				E3655D4023BD029200E08645 /* HomeViewController.swift */,
 				E343589A23C0CFDA0027FCB2 /* TextTableViewController.swift */,
 				E33E89F623CA5DF900059447 /* AddNoteViewController.swift */,
-				E39B758423CCBF5E00D11097 /* DocumentTableViewController.swift */,
 				E3CC642123CE670400D3903B /* CreatePassageViewController.swift */,
 				E365C74523CF67FC00A56EFD /* PassageViewController.swift */,
 				E3989B76241672950087B7F1 /* UserLoginViewController.swift */,
@@ -382,7 +376,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E39B758523CCBF5E00D11097 /* DocumentTableViewController.swift in Sources */,
 				E3989B77241672950087B7F1 /* UserLoginViewController.swift in Sources */,
 				E320A6382430F13B009E6F9D /* UsageMeasurementEntry.swift in Sources */,
 				E33CC3BE24225C8C00A5C1A7 /* MenuViewController.swift in Sources */,
@@ -409,7 +402,6 @@
 				E3129FCB24057EFC00B209F6 /* Entity.swift in Sources */,
 				E359A3AE23C37BA800DE726B /* SampleData.swift in Sources */,
 				E3B23C4823C77C8E0061D8BF /* TextSummaryView.swift in Sources */,
-				E39B758723CCC07100D11097 /* Document.swift in Sources */,
 				E38189542413F13F00E766CF /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

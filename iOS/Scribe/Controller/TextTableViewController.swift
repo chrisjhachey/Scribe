@@ -20,6 +20,7 @@ public class TextTableViewController: UITableViewController {
         
         navigationItem.title = "All Texts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addText(sender:)))
+        self.tableView.contentInset = UIEdgeInsets(top: 20,left: 0,bottom: 0,right: 0)
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TextCell")
         tableView.delegate = self

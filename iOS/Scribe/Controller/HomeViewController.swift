@@ -30,7 +30,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         activityIndicator.hidesWhenStopped = true
         
         pickerView.delegate = self
-        let color1 = UIColor.brown
+        let color1 = UIColor.white
         let color2 = Utility.hexStringToUIColor(hex: "#D0C8B0")
 
         pickerView.setValue(color1, forKey: "textColor")

@@ -104,7 +104,7 @@ public class Utility {
             }
             
             let editImage = NSTextAttachment()
-            editImage.image = UIImage(named: "icons8-edit-16")
+            editImage.image = UIImage(named: "feather (7)")
             let editImageString = NSAttributedString(attachment: editImage)
             passageString.append(editImageString)
             passageString.append(NSAttributedString(string: "\n\n"))
@@ -280,4 +280,37 @@ extension UIImage {
 // Custom attribute for NSAttributedString used to listen for button clicks on passages
 extension NSAttributedString.Key {
     static let passageIdentifier = NSAttributedString.Key(rawValue: "MyCustomAttribute")
+}
+
+// Used to add options to buttons in Storyboard!
+@IBDesignable extension UIButton {
+
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
 }
