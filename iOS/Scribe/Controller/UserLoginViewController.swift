@@ -18,7 +18,14 @@ public class UserLoginViewController: UIViewController {
     @IBOutlet weak var loginErrorMessage: UILabel!
     
     public override func viewDidLoad() {
+        super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard(_ sender: Any) {
+        view.endEditing(true)
     }
     
     @IBAction func login(_ sender: Any) {

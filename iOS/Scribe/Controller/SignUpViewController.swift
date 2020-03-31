@@ -20,6 +20,11 @@ public class SignUpViewController: UIViewController {
     @IBOutlet weak var loginErrorMessage: UILabel!
     
     public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         print("Hello")
     }
     
@@ -75,6 +80,10 @@ public class SignUpViewController: UIViewController {
         } else {
             print("All required fields must not be empty")
         }
+    }
+    
+    @objc func dismissKeyboard(_ sender: Any) {
+        view.endEditing(true)
     }
     
     public override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
