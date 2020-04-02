@@ -32,14 +32,14 @@ func CreateUsageEntry(responseBody []byte) ([]byte, error) {
 	defer stmt.Close()
 
 	if err != nil {
-		fmt.Println("Failed to prepare usage insert statement")
+		fmt.Println("Failed to prepare usage insert statement!")
 		panic(err.Error())
 	}
 
 	res, err := stmt.Exec(usageEntry.UserID, usageEntry.Action, usageEntry.DateStamp)
 
 	if err != nil {
-		fmt.Println("Failed to executeusage insert statement")
+		fmt.Println("Failed to executeusage insert statement!")
 		panic(err.Error())
 	}
 
