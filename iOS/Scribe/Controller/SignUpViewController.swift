@@ -51,6 +51,7 @@ public class SignUpViewController: UIViewController {
                     let usageEntry = UsageMeasurementEntry()
                     usageEntry.UserID = Context.shared.userId!
                     usageEntry.Action = UsageMeasurementEntry.UsageMeasurementAction.Login.rawValue
+                    usageEntry.DateStamp = Utility.printTimestamp()
                     
                     return ScribeAPI.shared.post(resourcePath: "usage", entity: usageEntry)
                 }.done { results in

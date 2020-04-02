@@ -32,18 +32,18 @@ func CreateUsageEntry(responseBody []byte) ([]byte, error) {
 	defer stmt.Close()
 
 	if err != nil {
+		fmt.Println("Failed to prepare usage insert statement")
 		panic(err.Error())
 	}
 
 	res, err := stmt.Exec(usageEntry.UserID, usageEntry.Action, usageEntry.DateStamp)
 
 	if err != nil {
+		fmt.Println("Failed to executeusage insert statement")
 		panic(err.Error())
 	}
 
 	id, _ := res.LastInsertId()
-
-	fmt.Println(id, "HACHEY!!!!!!!!!!")
 
 	result, err := db.Query("SELECT * FROM UsageMeasurementEntry WHERE id = ?", id)
 	defer result.Close()

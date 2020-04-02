@@ -3,7 +3,6 @@ package model
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 )
 
 // User represents a Scribe User
@@ -69,8 +68,6 @@ func CreateUser(responseBody []byte) ([]byte, error) {
 	}
 
 	id, _ := res.LastInsertId()
-
-	fmt.Println(id, "HACHEY!!!!!!!!!!")
 
 	result, err := db.Query("SELECT * FROM User WHERE id = ?", id)
 	defer result.Close()
