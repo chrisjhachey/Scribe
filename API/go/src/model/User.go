@@ -19,9 +19,37 @@ func CreateUser(responseBody []byte) ([]byte, error) {
 	var user User
 	json.Unmarshal(responseBody, &user)
 
-	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
+
+	// awsCreds := credentials.NewEnvCredentials()
+
+	// dbEndpoint := "scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com"
+	// awsRegion := "us-east-2b"
+
+	// //creating authentication token for the database connection
+	// authToken, err := rdsutils.BuildAuthToken(dbEndpoint, awsRegion, "admin:Dyonisus1!!", awsCreds)
+
+	// if err != nil {
+	// 	//log.Fatal("Unable to build Authentication Token") //todo remove
+	// 	fmt.Println("You didn't connect to the RDS bescause: ", err.Error())
+	// } else {
+	// 	fmt.Println("Auth Token: ", authToken)
+	// }
+
+	// //setting up TLS
+	// mysql.RegisterTLSConfig("custom", &tls.Config{
+	// 	InsecureSkipVerify: true,
+	// })
+
+	// // Create the MySQL DNS string for the DB connection
+	// // user:password@protocol(endpoint)/dbname?<params>
+	// connectStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?allowCleartextPasswords=true&tls=custom", "admin", authToken, dbEndpoint, "scribedatabase-1")
+
+	// // Use db to perform SQL operations on database
+	// db, err := sql.Open("mysql", connectStr)
+	// defer db.Close()
 
 	if err != nil {
 		panic(err.Error())
@@ -65,8 +93,8 @@ func CreateUser(responseBody []byte) ([]byte, error) {
 // CheckCredentials checks to see if the username and password are correct
 func CheckCredentials(username string, password string) (int, bool) {
 
-	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
 
 	if err != nil {

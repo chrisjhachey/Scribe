@@ -25,7 +25,9 @@ type Passage struct {
 // GetPassages is used to get all passages for a specific text from DB
 func GetPassages(userID string, textID string) ([]byte, error) {
 	var passages = []Passage{}
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
 
 	if err != nil {
@@ -55,7 +57,9 @@ func GetPassages(userID string, textID string) ([]byte, error) {
 // GetAllPassages is used to get all passages from DB
 func GetAllPassages() ([]byte, error) {
 	var passages = []Passage{}
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
 
 	if err != nil {
@@ -88,8 +92,8 @@ func CreatePassage(responseBody []byte) ([]byte, error) {
 	var passage Passage
 	json.Unmarshal(responseBody, &passage)
 
-	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
 
 	if err != nil {
@@ -136,8 +140,8 @@ func UpdatePassage(responseBody []byte) ([]byte, error) {
 	var passage Passage
 	json.Unmarshal(responseBody, &passage)
 
-	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	// Opens the MYSQL database in Amazon RDS using the mysql driver along with database name and connection information
+	db, err := sql.Open("mysql", "admin:Dyonisus1!!@tcp(scribedatabase-1.ctsuni8djs5u.us-east-2.rds.amazonaws.com)/innodb")
 	defer db.Close()
 
 	if err != nil {
