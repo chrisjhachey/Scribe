@@ -21,7 +21,7 @@ func CreateUsageEntry(responseBody []byte) ([]byte, error) {
 	json.Unmarshal(responseBody, &usageEntry)
 
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/sys")
 	defer db.Close()
 
 	if err != nil {

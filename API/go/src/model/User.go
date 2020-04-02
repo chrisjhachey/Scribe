@@ -20,7 +20,7 @@ func CreateUser(responseBody []byte) ([]byte, error) {
 	json.Unmarshal(responseBody, &user)
 
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/sys")
 	defer db.Close()
 
 	if err != nil {
@@ -66,7 +66,7 @@ func CreateUser(responseBody []byte) ([]byte, error) {
 func CheckCredentials(username string, password string) (int, bool) {
 
 	// Opens the MYSQL database using the mysql driver along with database name and connection information
-	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/Scribe")
+	db, err := sql.Open("mysql", "root:Dyonisus1!!@tcp(127.0.0.1:3306)/sys")
 	defer db.Close()
 
 	if err != nil {
