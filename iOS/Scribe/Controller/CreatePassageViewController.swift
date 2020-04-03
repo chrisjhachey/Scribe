@@ -69,6 +69,10 @@ public class CreatePassageViewController: FormViewController {
                     passage.Content = self.form.rowBy(tag: "noteTextArea")?.baseValue as! String
                     passage.TextID = self.text.ID
                     
+                    if self.form.rowBy(tag: "page")?.baseValue != nil {
+                        passage.PageNumber = (self.form.rowBy(tag: "page")?.baseValue as! String)
+                    }
+                    
                     guard let userId = Context.shared.userId else {
                         fatalError("No user id found in session!")
                     }

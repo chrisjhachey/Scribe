@@ -5,7 +5,7 @@ PODS:
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
   - CropViewController (2.5.2)
-  - Eureka (5.2.0)
+  - Eureka (5.2.1)
   - GoogleAPIClientForREST/Core (1.2.1):
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Drive (1.2.1):
@@ -49,7 +49,7 @@ DEPENDENCIES:
   - TesseractOCRiOS
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AppAuth
     - CropViewController
     - Eureka
@@ -65,7 +65,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   CropViewController: 1aac40093c5739e60d992b04724a55d12a689a4c
-  Eureka: 820a761c700f6eaab3b60758f138e0d9b99072b3
+  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
@@ -77,4 +77,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 06fb9a04e9c5cb8c67bfd27065f5fa55d7a1aedc
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.1

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D54EB787F5F20982E8913B144298F07D"
+               BlueprintIdentifier = "0956D1B087383C8475F223D0E374F1B8"
                BuildableName = "Pods_Scribe.framework"
                BlueprintName = "Pods-Scribe"
                ReferencedContainer = "container:Pods.xcodeproj">
