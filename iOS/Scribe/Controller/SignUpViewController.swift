@@ -28,7 +28,7 @@ public class SignUpViewController: UIViewController {
         print("Hello")
     }
     
-    @IBAction func signUp(_ sender: Any) {
+    @IBAction func signIn(_ sender: Any) {
         if let username = username.text, let password = password.text, let retypedPassword = retypedPassword.text {
             let usernameValid = Utility.isValidEmail(username)
             let passwordsMatch = password == retypedPassword
