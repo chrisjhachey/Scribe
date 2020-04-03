@@ -13,6 +13,9 @@ import PromiseKit
 public class UserLoginViewController: UIViewController {
     var authenticated: Bool = false
     
+//    @IBOutlet weak var username: UITextField!
+//    @IBOutlet weak var password: UITextField!
+//    @IBOutlet weak var loginErrorMessage: UILabel!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginErrorMessage: UILabel!
@@ -72,6 +75,7 @@ public class UserLoginViewController: UIViewController {
             self.loginErrorMessage.text = "Please check your username and password."
         }
     }
+    
     
     public override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         return authenticated
