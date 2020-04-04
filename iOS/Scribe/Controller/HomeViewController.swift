@@ -21,20 +21,34 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     let pickerView = UIPickerView()
     let defaults = UserDefaults.standard
     
-    @IBOutlet weak var currentWorkingText: UITextField!
+    @IBOutlet weak var scribeItButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var currentWorkingText: UITextField!
     @IBOutlet weak var errorMessageLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
+        currentWorkingText.textAlignment = .center
+        
+        scribeItButton.layer.shadowColor = UIColor.gray.cgColor
+        scribeItButton.layer.shadowOffset = CGSize(width: 5, height: 5)
+        scribeItButton.layer.shadowRadius = 5
+        scribeItButton.layer.shadowOpacity = 0.5
         
         pickerView.delegate = self
         let color1 = UIColor.white
+        
+        let colorGradient1 = Utility.hexStringToUIColor(hex: "#DAD4BD")
+        let colorGradient2 = Utility.hexStringToUIColor(hex: "#DBD3BA")
         let color2 = Utility.hexStringToUIColor(hex: "#D0C8B0")
+        
+        let colors = [colorGradient1, colorGradient2, color2]
+        
+        //scribeItButton.applyGradient(colours: colors, locations: [0.0, 0.5, 1.0])
 
-        pickerView.setValue(color1, forKey: "textColor")
-        pickerView.setValue(color2, forKey: "backgroundColor")
+        pickerView.setValue(color2, forKey: "textColor")
+        pickerView.setValue(color1, forKey: "backgroundColor")
         currentWorkingText.inputView = pickerView
         
         update()
@@ -42,8 +56,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         dismissPickerView()
     }
     
-    @IBAction func scribeItPressed(_ sender: UIButton) {
-        
+    @IBAction func scribeItPressed(_ sender: Any) {
         if let selectedText = selectedText {
             
             // Creates an action sheet that will appear at the bottom of the screen
@@ -116,7 +129,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             self.errorMessageLabel.text = "Select or create a text first"
         }
     }
-            
+    
     // Tesseract Image Recognition
     func performImageRecognition(_ image: UIImage) {
                 
@@ -182,6 +195,16 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedText = texts[row] // selected item
         currentWorkingText.text = selectedText?.Name
+        pickerView.reloadAllComponents()
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        let titleData = texts[row].Name
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.font:UIFont(name: "Futura-CondensedExtraBold", size: 26.0)!,NSAttributedString.Key.foregroundColor:UIColor.black])
+        pickerLabel.attributedText = myTitle
+        pickerLabel.textAlignment = .center
+       return pickerLabel
     }
     
     func dismissPickerView() {
@@ -201,6 +224,7 @@ class HomeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         print("Menu pushed!")
         HamburgerMenu().triggerSideMenu()
     }
+
     public func update() {
         
         firstly { () -> Promise<[Text]> in

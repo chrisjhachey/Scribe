@@ -80,7 +80,8 @@ public class TextTableViewController: UITableViewController {
             ScribeAPI.shared.get(resourcePath: "text/\(userId)")
         }.done { results in
             self.texts = results
-            let vc = self.tabBarController?.viewControllers![0] as! HomeViewController
+            let navVC = self.tabBarController?.viewControllers![0] as! UINavigationController
+            let vc = navVC.children[0] as! HomeViewController
             vc.update()
             self.tableView.reloadData()
         }.catch { error in
