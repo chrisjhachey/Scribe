@@ -38,6 +38,10 @@ public class TextTableViewController: UITableViewController {
         let text = texts[indexPath.item]
         let summary = TextSummaryView(name: text.Name, author: text.Author!)
         
+        if self.traitCollection.horizontalSizeClass == .regular {
+            self.tableView.rowHeight = 120
+        }
+        
         cell.subviews.forEach({ $0.removeFromSuperview() })
         cell.addSubview(summary)
     
